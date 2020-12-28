@@ -18,9 +18,8 @@
 
 <script>
 export default {
-  async asyncData({ $content, route }) {
+  async asyncData({ $content }) {
     const places = await $content('places').fetch()
-    debugger
     return {
       places,
     }
