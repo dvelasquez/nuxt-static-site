@@ -46,14 +46,6 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
   ],
-  // @nuxt/content dynamic routes
-  // generate: {
-  //   async routes() {
-  //     const { $content } = require('@nuxt/content')
-  //     const files = await $content({ deep: true }).only(['path']).fetch()
-  //     return files.map((file) => (file.path === '/index' ? '/' : file.path))
-  //   },
-  // },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -106,32 +98,9 @@ export default {
   build: {
     analize: true,
     extractCSS: true,
-    // postcss: {
-    //   plugins: {
-    //     '@fullhuman/postcss-purgecss': {
-    //       content: [
-    //         'components/**/*.vue',
-    //         'layouts/**/*.vue',
-    //         'pages/**/*.vue',
-    //         'plugins/**/*.js',
-    //         'node_modules/vuetify/src/**/*.ts',
-    //       ],
-    //       styleExtensions: ['.css'],
-    //       safelist: {
-    //         standard: ['body', 'html', 'nuxt-progress'],
-    //         deep: [
-    //           /page-enter/,
-    //           /page-leave/,
-    //           /dialog-transition/,
-    //           /tab-transition/,
-    //           /tab-reversetransition/,
-    //         ],
-    //       },
-    //     },
-    //     'css-byebye': {
-    //       rulesToRemove: [/.*\.v-application--is-rtl.*/, /.*\.theme--dark.*/],
-    //     },
-    //   },
-    // },
+  },
+
+  render: {
+    crossorigin: '',
   },
 }
