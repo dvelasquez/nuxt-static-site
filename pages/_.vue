@@ -1,22 +1,26 @@
 <template>
   <div>
-    {{ article }}
+    {{ place }}
   </div>
 </template>
 
-<script>
-export default {
-  async asyncData({ $content, app, params, error }) {
-    console.log(app)
+<script lang="ts">
+import Vue from 'vue'
+import { IContentDocument } from '@nuxt/content/types/content'
+
+export default Vue.extend({
+  async asyncData({ $content, params, error }) {
     const path = `/${params.pathMatch || 'index'}`
-    const [place] = await $content({ deep: true }).where({ path }).fetch()
+    const [place] = (await $content({ deep: true })
+      .where({ path })
+      .fetch()) as IContentDocument[]
 
     if (!place) {
       return error({ statusCode: 404, message: 'Article not found' })
     }
     return {
-      article: place,
+      place,
     }
   },
-}
+})
 </script>
