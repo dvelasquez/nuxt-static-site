@@ -37,7 +37,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Build Application 🛠
-        run: yarn generate
+        run: BASE_URL=/pr/${{github.event.number}}/ yarn generate
 
       - name: Deploying application to Amazon S3
         uses: dvelasquez/deploy-s3-action@main

@@ -96,11 +96,19 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    analize: true,
     extractCSS: true,
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true,
+    },
   },
 
   render: {
     crossorigin: '',
+  },
+
+  router: {
+    base: process.env.BASE_URL || '/',
   },
 }
