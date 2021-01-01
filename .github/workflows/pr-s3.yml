@@ -62,6 +62,7 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Audit URLs using Lighthouse
+        id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@v3
         with:
           urls: |
@@ -95,13 +96,13 @@ jobs:
                 `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
             ].join('\n')
              core.setOutput("comment", comment);
-        - name: Add comment to PR
-          id: comment_to_pr
-          uses: marocchino/sticky-pull-request-comment@v1
-          if: always()
-          with:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            number: ${{ github.event.issue.number }}
-            header: lighthouse
-            message: |
-              ${{ steps.format_lighthouse_score.outputs.comment }}
+      - name: Add comment to PR
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v1
+        if: always()
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.issue.number }}
+          header: lighthouse
+          message: |
+            ${{ steps.format_lighthouse_score.outputs.comment }}
