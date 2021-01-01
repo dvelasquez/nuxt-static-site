@@ -28,21 +28,43 @@
       <v-btn icon @click.stop="drawer = !drawer">
         <v-icon>{{ icons.mdiMenu }}</v-icon>
       </v-btn>
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
+        <v-icon>{{ getChevronIcon(miniVariant) }}</v-icon>
+      </v-btn>
+      <v-btn icon @click.stop="clipped = !clipped">
+        <v-icon>{{ icons.mdiApplication }}</v-icon>
+      </v-btn>
+      <v-btn icon @click.stop="fixed = !fixed">
+        <v-icon>{{ icons.mdiMinus }}</v-icon>
+      </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+        <v-icon>{{ icons.mdiMenu }}</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
+    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+      <v-list>
+        <v-list-item @click.native="right = !right">
+          <v-list-item-action>
+            <v-icon light> {{ icons.mdiRepeat }} </v-icon>
+          </v-list-item-action>
+          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
-      <span>Panor.am&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
 
-<script lang="ts">
+<script>
 import {
   mdiMenu,
   mdiApplication,
@@ -54,30 +76,33 @@ import {
   mdiApps,
   mdiFood,
 } from '@mdi/js'
-import Vue from 'vue'
-
-export default Vue.extend({
+export default {
   data() {
     return {
       clipped: false,
       drawer: false,
-      fixed: true,
+      fixed: false,
       items: [
         {
           icon: mdiApps,
-          title: 'Bienvenido',
+          title: 'Welcome',
           to: '/',
         },
         {
+          icon: mdiChartBubble,
+          title: 'Inspire',
+          to: '/inspire',
+        },
+        {
           icon: mdiFood,
-          title: 'Lugares',
+          title: 'Places',
           to: '/places',
         },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Panor.am',
+      title: 'Vuetify.js',
       icons: {
         mdiMenu,
         mdiApplication,
@@ -91,9 +116,9 @@ export default Vue.extend({
     }
   },
   methods: {
-    getChevronIcon(miniVariant: boolean) {
+    getChevronIcon(miniVariant) {
       return miniVariant ? mdiChevronRight : mdiChevronLeft
     },
   },
-})
+}
 </script>
