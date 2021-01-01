@@ -1,0 +1,22 @@
+name: Lighthouse CI
+on:
+  workflow_run:
+    workflows:
+      - "Deploy to S3"
+      - "Deploy Pull Request to S3"
+    types:
+      - completed
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v3
+        with:
+          urls: |
+            https://panor.am/
+            https://panor.am/places
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
