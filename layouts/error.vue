@@ -10,14 +10,20 @@
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropOptions } from 'vue'
+
+interface ErrorProps {
+  statusCode: number
+}
+
+export default Vue.extend({
   layout: 'empty',
   props: {
     error: {
       type: Object,
       default: null,
-    },
+    } as PropOptions<ErrorProps>,
   },
   data() {
     return {
@@ -25,14 +31,14 @@ export default {
       otherError: 'An error occurred',
     }
   },
-  head() {
+  head(): { title: string } {
     const title =
       this.error.statusCode === 404 ? this.pageNotFound : this.otherError
     return {
       title,
     }
   },
-}
+})
 </script>
 
 <style scoped>

@@ -1,23 +1,17 @@
 <template>
   <div>
     <nuxt-link to="/">Home</nuxt-link>
-    <h2>Nuxt.js Shop</h2>
-
-    <ul>
-      <li v-for="place in places" :key="place.slug">
-        <nuxt-link :to="place.path"
-          >{{ place.title }} -
-          {{
-            place.categories.map((category) => category.slug).join(', ')
-          }}</nuxt-link
-        >
-      </li>
-    </ul>
+    <h2>Nuxt.js List</h2>
+    <div v-for="place in places" :key="place.slug">
+      <place-card :place="place" />
+      <br />
+    </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   async asyncData({ $content }) {
     const places = await $content('places').fetch()
     return {
@@ -25,5 +19,5 @@ export default {
     }
   },
   watchQuery: true,
-}
+})
 </script>
