@@ -71,6 +71,7 @@ jobs:
           budgetPath: ./budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+
       - name: Format lighthouse score
         id: format_lighthouse_score
         uses: actions/github-script@v3
@@ -83,13 +84,14 @@ jobs:
             const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
             const comment = fls({ results, links })
             core.setOutput("comment", comment);
-        - name: Add comment to PR
-          id: comment_to_pr
-          uses: marocchino/sticky-pull-request-comment@v1
-          if: always()
-          with:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            number: ${{ github.event.issue.number }}
-            header: lighthouse
-            message: |
-              ${{ steps.format_lighthouse_score.outputs.comment }}
+
+      - name: Add comment to PR
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v1
+        if: always()
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.issue.number }}
+          header: lighthouse
+          message: |
+            ${{ steps.format_lighthouse_score.outputs.comment }}

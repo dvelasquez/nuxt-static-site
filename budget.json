@@ -1,14 +1,33 @@
 [
   {
     "path": "/*",
-    "resourceSizes": [
+    "options": {
+      "firstPartyHostnames": ["*.panor.am"]
+    },
+    "timings": [
       {
-        "resourceType": "document",
-        "budget": 18
+        "metric": "first-contentful-paint",
+        "budget": 2000
       },
       {
-        "resourceType": "total",
-        "budget": 200
+        "metric": "cumulative-layout-shift",
+        "budget": 0.1
+      },
+      {
+        "metric": "largest-contenful-paint",
+        "budget": 2500
+      },
+      {
+        "metric": "speed-index",
+        "budget": 4300
+      },
+      {
+        "metric": "total-blocking-time",
+        "budget": 300
+      },
+      {
+        "metric": "interactive",
+        "budget": 3800
       }
     ]
   }
