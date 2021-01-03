@@ -28,7 +28,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { Place } from '~/content/places/Places'
+import { Place } from '~/content/places'
 
 export default defineComponent({
   props: {
