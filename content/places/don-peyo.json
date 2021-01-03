@@ -1,0 +1,17 @@
+{
+  "name": "Don Peyo",
+  "slug": "don-peyo",
+  "subtitle": "Comida chilena típica",
+  "image": "https://lh3.ggpht.com/p/AF1QipNMZWdzxq0ioSVAHKPDt22YMhdg7rrJ37LHzQY0=s1536",
+  "location": {
+    "fullAddress": "Lo Encalada 465, Ñuñoa, Región Metropolitana, Chile",
+    "street": "Lo Encalada 465",
+    "commune": "Ñuñoa",
+    "region": "Región Metropolitana",
+    "coordinates": {
+      "latitude": -33.4566567,
+      "longitude": -70.6261882
+    }
+  },
+  "categories": ["chilena"]
+}
