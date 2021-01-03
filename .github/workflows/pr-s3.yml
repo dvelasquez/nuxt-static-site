@@ -78,17 +78,18 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const outputs = ${{steps.lighthouse_audit.outputs}}
-            console.log(outputs)
+            const results = ${{ steps.lighthouse_audit.outputs.manifest }}
+            const links = ${{ steps.lighthouse_audit.outputs.links }}
             const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
-            fls({ github, context, outputs })
-      - name: Add comment to PR
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v1
-        if: always()
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ github.event.issue.number }}
-          header: lighthouse
-          message: |
-            ${{ steps.format_lighthouse_score.outputs.comment }}
+            const comment = fls({ results, links })
+            core.setOutput("comment", comment);
+        - name: Add comment to PR
+          id: comment_to_pr
+          uses: marocchino/sticky-pull-request-comment@v1
+          if: always()
+          with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            number: ${{ github.event.issue.number }}
+            header: lighthouse
+            message: |
+              ${{ steps.format_lighthouse_score.outputs.comment }}
