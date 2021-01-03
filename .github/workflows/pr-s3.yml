@@ -78,8 +78,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const outputs = ${{steps.lighthouse_audit.outputs}}
+            console.log(outputs)
             const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
-            fls({steps, core})
+            fls({ github, context, outputs })
       - name: Add comment to PR
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v1

@@ -1,22 +1,28 @@
-module.exports = ({ steps, core }) => {
-  const result = steps.lighthouse_audit.outputs.manifest[0].summary;
-  const links = steps.lighthouse_audit.outputs.links;
+const createSingleComment = ({ summary, testUrl, reportPublicUrl }) => {
   const formatResult = (res) => Math.round((res * 100));
-  Object.keys(result).forEach(key => result[key] = formatResult(result[key]));
+  Object.keys(summary).forEach(key => summary[key] = formatResult(summary[key]));
   const score = res => res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴";
-  const comment = [
-    `⚡️ [Lighthouse report](${Object.values(links)[0]}) for the changes in this PR:`,
+  return [
+    `⚡️ [Lighthouse report](${reportPublicUrl}) for the changes in this PR:`,
     "| Category | Score |",
     "| --- | --- |",
-    `| ${score(result.performance)} Performance | ${result.performance} |`,
-    `| ${score(result.accessibility)} Accessibility | ${result.accessibility} |`,
-    `| ${score(result["best-practices"])} Best practices | ${result["best-practices"]} |`,
-    `| ${score(result.seo)} SEO | ${result.seo} |`,
-    `| ${score(result.pwa)} PWA | ${result.pwa} |`,
+    `| ${score(summary.performance)} Performance | ${summary.performance} |`,
+    `| ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |`,
+    `| ${score(summary["best-practices"])} Best practices | ${summary["best-practices"]} |`,
+    `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+    `| ${score(summary.pwa)} PWA | ${summary.pwa} |`,
     " ",
-    `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
-  ].join("\n");
-  core.setOutput("comment", comment);
+    `*Lighthouse ran on [${testUrl}](${testUrl})*`
+  ].join("\n")
+}
+
+
+module.exports = ({ results, links }) => {
+  return results.map(result =>{
+    const testUrl = Object.keys(links).find(key => key === result.url)
+    const reportPublicUrl = links[testUrl]
+    return createSingleComment({summary: result.summary, testUrl, reportPublicUrl})
+  }).join("\n")
 };
 
 
