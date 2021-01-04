@@ -14,7 +14,7 @@
         "budget": 0.1
       },
       {
-        "metric": "largest-contenful-paint",
+        "metric": "largest-contentful-paint",
         "budget": 2500
       },
       {

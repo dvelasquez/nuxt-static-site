@@ -24,7 +24,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache node_modules 📦
+      - name: Cache yarn cache 📦
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -33,33 +33,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        id: node_modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: Install dependencies 👨🏻‍💻
         run: yarn --frozen-lockfile
 
-      - name: Build Application 🛠
-        run: BASE_URL=/pr/${{github.event.number}}/ yarn generate
-
-      - name: Deploying application to Amazon S3
-        uses: dvelasquez/deploy-s3-action@main
-        with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-west-1
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET }}
-          BUCKET_PATH: "/pr/${{github.event.number}}"
-          DIST_LOCATION_CODE: ./dist
-
-      - name: Purge cache
-        uses: jakejarvis/cloudflare-purge-action@master
-        env:
-          # Zone is required by both authentication methods
-          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
-
-      - name: Update pull-request body
-        uses: claudiamatosa/github-action-replace-pr-body@master
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Build Application for Analysis 🛠
+        run: yarn generate
 
       - name: Audit URLs using Lighthouse
         id: lighthouse_audit
@@ -67,14 +54,11 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_TOKEN }}
+          GITHUB_PR_NUMBER: ${{github.event.number}}
         with:
-          urls: |
-            https://panor.am/pr/${{github.event.number}}/
-            https://panor.am/pr/${{github.event.number}}/places
-          budgetPath: ./budget.json # test performance budgets
+          configPath: './lighthouserc.pr.js'
           uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
-
+          temporaryPublicStorage: true
       - name: Format lighthouse score
         id: format_lighthouse_score
         uses: actions/github-script@v3
@@ -98,3 +82,28 @@ jobs:
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
+
+      - name: Build Application for PR 🛠
+        run: BASE_URL=/pr/${{github.event.number}}/ yarn generate
+
+      - name: Deploying application to Amazon S3
+        uses: dvelasquez/deploy-s3-action@main
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-west-1
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET }}
+          BUCKET_PATH: "/pr/${{github.event.number}}"
+          DIST_LOCATION_CODE: ./dist
+
+      - name: Purge cache
+        uses: jakejarvis/cloudflare-purge-action@master
+        env:
+          # Zone is required by both authentication methods
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+
+      - name: Update pull-request body
+        uses: claudiamatosa/github-action-replace-pr-body@master
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"

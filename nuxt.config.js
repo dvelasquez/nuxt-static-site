@@ -111,4 +111,19 @@ export default {
   router: {
     base: process.env.BASE_URL || '/',
   },
+
+  generate: {
+    cache: {
+      ignore: [
+        'lighthouserc.pr.js',
+        'budget.json',
+        'README.md',
+        '.github',
+        '.idea',
+        'dist',
+        'node_modules',
+        'test',
+      ],
+    },
+  },
 }
