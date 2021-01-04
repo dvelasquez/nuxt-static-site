@@ -8,12 +8,7 @@ on:
 
 jobs:
   ci:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [14]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎
@@ -28,7 +23,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache node_modules 📦
+      - name: Cache yarn cache 📦
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -37,7 +32,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        id: node_modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
       - name: Install dependencies 👨🏻‍💻
+        if: steps.node_modules-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
 
       - name: Run linter 👀
