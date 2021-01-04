@@ -5,20 +5,16 @@ on:
     branches:
       - main
 jobs:
-  upload:
-    runs-on: ${{ matrix.os }}
+  install_dependencies:
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-        node: [ 14 ]
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14
 
       - name: Get yarn cache directory path 🛠
         id: yarn-cache-dir-path
@@ -40,10 +36,26 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node_modules-
 
       - name: Install dependencies 👨🏻‍💻
         run: yarn --frozen-lockfile
+
+  analyse_locally:
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        id: node_modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node_modules-analysis-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-analysis-
+            ${{ runner.os }}-node_modules-
 
       - name: Build Application for Analysis 🛠
         run: yarn generate
@@ -59,6 +71,7 @@ jobs:
           configPath: './lighthouserc.pr.js'
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true
+
       - name: Format lighthouse score
         id: format_lighthouse_score
         uses: actions/github-script@v3
@@ -82,6 +95,22 @@ jobs:
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
+
+  deploy_pr_s3:
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2
+        id: node_modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node_modules-s3-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-s3-
+            ${{ runner.os }}-node_modules-
 
       - name: Build Application for PR 🛠
         run: BASE_URL=/pr/${{github.event.number}}/ yarn generate
@@ -107,3 +136,4 @@ jobs:
         uses: claudiamatosa/github-action-replace-pr-body@master
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
+

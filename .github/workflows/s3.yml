@@ -7,19 +7,15 @@ on:
       - build/s3
 jobs:
   upload:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-        node: [ 14 ]
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14
 
       - name: Get yarn cache directory path 🛠
         id: yarn-cache-dir-path
