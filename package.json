@@ -28,7 +28,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.3.3",
     "@vue/composition-api": "^1.0.0-beta.22",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.2",
     "nuxt": "^2.14.6",
     "nuxt-purgecss": "^1.0.0"
   },
