@@ -32,15 +32,29 @@ const createMarkdownTableRow = ({url, performance, accessibility, bestPractices,
   return `| ${url} | ${performance} | ${accessibility} | ${bestPractices} | ${seo} | ${pwa} | [View report](${reportUrl})|`
 }
 
+const assertionText = (assertionResults) => {
+  return assertionResults.map(assertion => {
+    return [`* Failed assertion [${assertion.auditTitle}](${assertion.auditDocumentationLink}) for url ${assertion.url}`,
+      `Maximum value expected: **${assertion.expected}**.`,
+      `Current value: **${assertion.actual}**`].join('\n')
+  });
+};
+
 const createFullText = ({ results, links, assertionResults }) => {
-  const tableHeader = createMarkdownTableHeader()
+  const tableHeader = createMarkdownTableHeader();
   const tableBody = results.map(result => {
     const testUrl = Object.keys(links).find(key => key === result.url);
     const reportPublicUrl = links[testUrl];
     return createSingleRow({ summary: result.summary, testUrl, reportPublicUrl });
   });
-  const comment = ['⚡️ Lighthouse report for the changes in this PR',...tableHeader, ...tableBody]
-  return comment.join("\n")
+  const comment = [
+    "### ⚡️ Lighthouse report for the changes in this PR", "",
+    ...tableHeader,
+    ...tableBody, "",
+    `### &#x26A0; Failed Assertions (${assertionResults.length})`,
+    ...assertionText(assertionResults)
+  ];
+  return comment.join("\n");
 };
 
 module.exports = createFullText;
