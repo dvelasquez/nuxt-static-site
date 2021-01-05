@@ -17,7 +17,7 @@ const createSingleComment = ({ summary, testUrl, reportPublicUrl }) => {
 }
 
 
-module.exports = ({ results, links }) => {
+module.exports = ({ results, links, assertionResults }) => {
   return results.map(result =>{
     const testUrl = Object.keys(links).find(key => key === result.url)
     const reportPublicUrl = links[testUrl]

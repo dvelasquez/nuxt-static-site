@@ -86,8 +86,9 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             const links = ${{ steps.lighthouse_audit.outputs.links }}
+            const assertionResults = ${{ steps.lighthouse_audit.outputs.assertionResults }}
             const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
-            const comment = fls({ results, links })
+            const comment = fls({ results, links, assertionResults })
             core.setOutput("comment", comment);
 
       - name: Add comment to PR
@@ -202,8 +203,9 @@ jobs:
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             const links = ${{ steps.lighthouse_audit.outputs.links }}
+            const assertionResults = ${{ steps.lighthouse_audit.outputs.assertionResults }}
             const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
-            const comment = fls({ results, links })
+            const comment = fls({ results, links, assertionResults })
             core.setOutput("comment", comment);
 
       - name: Add comment to PR
