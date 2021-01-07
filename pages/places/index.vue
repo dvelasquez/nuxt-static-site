@@ -45,7 +45,7 @@ export default Vue.extend({
     return {
       // @ts-ignore
       title: this.places.length + ' lugares donde quitar el hambre',
-      link: preloadFirstTwoImages,
+      // link: preloadFirstTwoImages,
     }
   },
 })

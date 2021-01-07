@@ -3,13 +3,65 @@
     <picture>
       <source
         type="image/webp"
-        :srcset="place.image.replace('.jpg', '.webp')"
+        media="(max-width: 400)"
+        :srcset="
+          place.image
+            .replace('.jpg', '_400w.webp')
+            .replace('places', 'places/webp')
+        "
+      />
+      <source
+        type="image/webp"
+        media="(max-width: 768)"
+        :srcset="
+          place.image
+            .replace('.jpg', '_768w.webp')
+            .replace('places', 'places/webp')
+        "
+      />
+      <source
+        type="image/webp"
+        :srcset="
+          place.image
+            .replace('.jpg', '_400w.webp')
+            .replace('places', 'places/webp')
+        "
+      />
+      <source
+        type="image/jpg"
+        media="(max-width: 400)"
+        :srcset="
+          place.image
+            .replace('.jpg', '_400w.jpg')
+            .replace('places', 'places/webp')
+        "
+      />
+      <source
+        type="image/jpg"
+        media="(max-width: 768)"
+        :srcset="
+          place.image
+            .replace('.jpg', '_768w.jpg')
+            .replace('places', 'places/jpg')
+        "
+      />
+      <source
+        type="image/jpg"
+        :srcset="
+          place.image
+            .replace('.jpg', '_400w.jpg')
+            .replace('places', 'places/jpg')
+        "
       />
       <img
         style="object-fit: cover"
         height="200"
         width="100%"
-        :src="place.image"
+        :src="
+          place.image
+            .replace('.jpg', '_400w.jpg')
+            .replace('places', 'places/jpg')
+        "
         :loading="loading"
       />
     </picture>
