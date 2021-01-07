@@ -18,5 +18,35 @@ export default Vue.extend({
       places,
     }
   },
+  head() {
+    const preloadFirstTwoImages: any[] = []
+    // @ts-ignore
+    if (this.places.length > 0) {
+      // @ts-ignore
+      this.places.forEach((place, index) => {
+        if (index < 2) {
+          preloadFirstTwoImages.push({
+            href: place.image,
+            as: 'image',
+            rel: 'preload',
+            type: 'image/jpg',
+            crossOrigin: 'crossorigin',
+          })
+          preloadFirstTwoImages.push({
+            href: place.image.replace('.jpg', '.webp'),
+            as: 'image',
+            rel: 'preload',
+            type: 'image/webp',
+            crossOrigin: 'crossorigin',
+          })
+        }
+      })
+    }
+    return {
+      // @ts-ignore
+      title: this.places.length + ' lugares donde quitar el hambre',
+      link: preloadFirstTwoImages,
+    }
+  },
 })
 </script>

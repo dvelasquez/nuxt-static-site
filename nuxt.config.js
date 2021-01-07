@@ -6,8 +6,8 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - nuxt-static-site',
-    title: 'nuxt-static-site',
+    titleTemplate: '%s - Panor.am',
+    title: 'Panor.am',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
