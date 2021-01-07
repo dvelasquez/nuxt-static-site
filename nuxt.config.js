@@ -123,6 +123,7 @@ export default {
         'dist',
         'node_modules',
         'test',
+        'cypress',
       ],
     },
   },
