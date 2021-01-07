@@ -1,14 +1,19 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      loading="lazy"
-      :src="place.image"
-    >
-      <v-card-title>{{ place.name }}</v-card-title>
-    </v-img>
-
+    <picture>
+      <source
+        type="image/webp"
+        :srcset="place.image.replace('.jpg', '.webp')"
+      />
+      <img
+        style="object-fit: cover"
+        height="200"
+        width="100%"
+        :src="place.image"
+        :loading="loading"
+      />
+    </picture>
+    <v-card-title>{{ place.name }}</v-card-title>
     <v-card-subtitle class="pb-0"> {{ place.subtitle }}</v-card-subtitle>
 
     <v-card-text class="text--primary">
@@ -35,6 +40,11 @@ export default defineComponent({
     place: {
       type: Object as () => Place,
       required: true,
+    },
+    loading: {
+      type: String as () => 'lazy' | 'eager',
+      required: false,
+      default: 'lazy',
     },
   },
 })

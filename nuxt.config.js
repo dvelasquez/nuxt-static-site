@@ -51,7 +51,7 @@ export default {
   axios: {},
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
-  // content: {},
+  content: {},
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
@@ -113,6 +113,14 @@ export default {
   },
 
   generate: {
+    generate: {
+      async routes() {
+        const { $content } = require('@nuxt/content')
+        const files = await $content({ deep: true }).only(['path']).fetch()
+
+        return files.map((file) => (file.path === '/index' ? '/' : file.path))
+      },
+    },
     cache: {
       ignore: [
         'lighthouserc.pr.js',

@@ -2,8 +2,8 @@
   <div>
     <nuxt-link to="/">Home</nuxt-link>
     <h2>Nuxt.js List</h2>
-    <div v-for="place in places" :key="place.slug">
-      <place-card :place="place" />
+    <div v-for="(place, index) in places" :key="place.slug">
+      <place-card :place="place" :loading="index < 2 ? 'eager' : 'lazy'" />
       <br />
     </div>
   </div>
@@ -18,6 +18,5 @@ export default Vue.extend({
       places,
     }
   },
-  watchQuery: true,
 })
 </script>
