@@ -2,7 +2,7 @@
   "name": "Food Truck Valdioli",
   "subtitle": "Wena y rápida",
   "slug": "food-truck-valdioli",
-  "image": "/content/places/food-truck-valdioli.jpg",
+  "image": "./content/places/food-truck-valdioli.jpg",
   "location": {
     "fullAddress": "Aníbal Pinto 1672, Independencia, Región Metropolitana, Chile",
     "street": "Aníbal Pinto 1672",
