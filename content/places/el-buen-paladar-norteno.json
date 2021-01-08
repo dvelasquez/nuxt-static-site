@@ -2,7 +2,7 @@
   "name": "El Buen Paladar Norteño",
   "subtitle": "Comida Peruana",
   "slug": "el-buen-paladar-norteno",
-  "image": "https://lh3.ggpht.com/p/AF1QipMUUKTL9Z2y9_AW9DrATBsQIxJ8XgBgQdt8OdcT=s1536",
+  "image": "./content/places/el-buen-paladar-norteno.jpg",
   "location": {
     "fullAddress": "Victoria 721, Santiago, Región Metropolitana, Chile",
     "street": "Victoria 721",

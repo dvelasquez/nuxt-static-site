@@ -6,8 +6,8 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - nuxt-static-site',
-    title: 'nuxt-static-site',
+    titleTemplate: '%s - Panor.am',
+    title: 'Panor.am',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -51,7 +51,7 @@ export default {
   axios: {},
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
-  // content: {},
+  content: {},
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
@@ -110,5 +110,29 @@ export default {
 
   router: {
     base: process.env.BASE_URL || '/',
+  },
+
+  generate: {
+    generate: {
+      async routes() {
+        const { $content } = require('@nuxt/content')
+        const files = await $content({ deep: true }).only(['path']).fetch()
+
+        return files.map((file) => (file.path === '/index' ? '/' : file.path))
+      },
+    },
+    cache: {
+      ignore: [
+        'lighthouserc.pr.js',
+        'budget.json',
+        'README.md',
+        '.github',
+        '.idea',
+        'dist',
+        'node_modules',
+        'test',
+        'cypress',
+      ],
+    },
   },
 }
