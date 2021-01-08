@@ -91,22 +91,22 @@ export default defineComponent({
   setup(props) {
     const computedImages = computed(() => ({
       jpg: {
-        original: `${props.imagePath}/jpg/${props.imageName}.jpg`,
-        w1280: `${props.imagePath}/jpg/${props.imageName}_1280w.jpg`,
-        w640: `${props.imagePath}/jpg/${props.imageName}_640w.jpg`,
-        w320: `${props.imagePath}/jpg/${props.imageName}_320w.jpg`,
+        original: `${props.imagePath}/jpg/thumbnails/${props.imageName}.jpg`,
+        w1280: `${props.imagePath}/jpg/thumbnails/${props.imageName}_1280w.jpg`,
+        w640: `${props.imagePath}/jpg/thumbnails/${props.imageName}_640w.jpg`,
+        w320: `${props.imagePath}/jpg/thumbnails/${props.imageName}_320w.jpg`,
       },
       webp: {
-        original: `${props.imagePath}/webp/${props.imageName}.webp`,
-        w1280: `${props.imagePath}/webp/${props.imageName}_1280w.webp`,
-        w640: `${props.imagePath}/webp/${props.imageName}_640w.webp`,
-        w320: `${props.imagePath}/webp/${props.imageName}_320w.webp`,
+        original: `${props.imagePath}/webp/thumbnails/${props.imageName}.webp`,
+        w1280: `${props.imagePath}/webp/thumbnails/${props.imageName}_1280w.webp`,
+        w640: `${props.imagePath}/webp/thumbnails/${props.imageName}_640w.webp`,
+        w320: `${props.imagePath}/webp/thumbnails/${props.imageName}_320w.webp`,
       },
       avif: {
-        original: `${props.imagePath}/avif/${props.imageName}.avif`,
-        w1280: `${props.imagePath}/avif/${props.imageName}_1280w.avif`,
-        w640: `${props.imagePath}/avif/${props.imageName}_640w.avif`,
-        w320: `${props.imagePath}/avif/${props.imageName}_320w.avif`,
+        original: `${props.imagePath}/avif/thumbnails/${props.imageName}.avif`,
+        w1280: `${props.imagePath}/avif/thumbnails/${props.imageName}_1280w.avif`,
+        w640: `${props.imagePath}/avif/thumbnails/${props.imageName}_640w.avif`,
+        w320: `${props.imagePath}/avif/thumbnails/${props.imageName}_320w.avif`,
       },
     }))
     return {

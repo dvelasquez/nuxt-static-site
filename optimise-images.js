@@ -3,171 +3,211 @@ const fs = require('fs-extra')
 const sharp = require('sharp')
 
 const IMAGE_CONTENT_SOURCE = path.join(__dirname, 'static', 'content', 'places')
-const IMAGE_CONTENT_WEBP = path.join(
-  __dirname,
-  'static',
-  'content',
-  'places',
-  'webp'
+const IMAGE_CONTENT_WEBP = path.join(IMAGE_CONTENT_SOURCE, 'webp')
+const IMAGE_CONTENT_JPG = path.join(IMAGE_CONTENT_SOURCE, 'jpg')
+const IMAGE_CONTENT_AVIF = path.join(IMAGE_CONTENT_SOURCE, 'avif')
+const IMAGE_CONTENT_WEBP_FULL = path.join(IMAGE_CONTENT_WEBP, 'full')
+const IMAGE_CONTENT_JPG_FULL = path.join(IMAGE_CONTENT_JPG, 'full')
+const IMAGE_CONTENT_AVIF_FULL = path.join(IMAGE_CONTENT_AVIF, 'full')
+const IMAGE_CONTENT_WEBP_THUMBNAILS = path.join(
+  IMAGE_CONTENT_WEBP,
+  'thumbnails'
 )
-const IMAGE_CONTENT_JPG = path.join(
-  __dirname,
-  'static',
-  'content',
-  'places',
-  'jpg'
-)
-
-const IMAGE_CONTENT_AVIF = path.join(
-  __dirname,
-  'static',
-  'content',
-  'places',
-  'avif'
+const IMAGE_CONTENT_JPG_THUMBNAILS = path.join(IMAGE_CONTENT_JPG, 'thumbnails')
+const IMAGE_CONTENT_AVIF_THUMBNAILS = path.join(
+  IMAGE_CONTENT_AVIF,
+  'thumbnails'
 )
 
-const processWebp = (file, fileInputPath) => {
-  fs.emptyDirSync(IMAGE_CONTENT_WEBP)
-  const fileOutputPathWebp = path.join(
-    IMAGE_CONTENT_WEBP,
-    file.replace('.jpg', '.webp')
-  )
-  const fileOutputPathWebp1280w = path.join(
-    IMAGE_CONTENT_WEBP,
-    file.replace('.jpg', '_1280w.webp')
-  )
-  const fileOutputPathWebp640w = path.join(
-    IMAGE_CONTENT_WEBP,
-    file.replace('.jpg', '_640w.webp')
-  )
-  const fileOutputPathWebp320w = path.join(
-    IMAGE_CONTENT_WEBP,
-    file.replace('.jpg', '_320w.webp')
-  )
-  sharp(fileInputPath)
-    .webp({ quality: 60 })
-    .toFile(fileOutputPathWebp)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 1280 })
-    .webp({ quality: 60 })
-    .toFile(fileOutputPathWebp1280w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 640 })
-    .webp({ quality: 60 })
-    .toFile(fileOutputPathWebp640w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 320 })
-    .webp({ quality: 60 })
-    .toFile(fileOutputPathWebp320w)
-    .then(console.log)
-    .catch(console.error)
+const originalResize = {
+  '1920w': { width: 1920 },
+  '1280w': { width: 1280 },
+  '640w': { width: 640 },
+  '320w': { width: 320 },
 }
-const processAvif = (file, fileInputPath) => {
+
+const thumbResize = {
+  '1920w': { width: 1344, height: 800, fit: 'cover' },
+  '1280w': { width: 1008, height: 600, fit: 'cover' },
+  '640w': { width: 675, height: 400, fit: 'cover' },
+  '320w': { width: 336, height: 200, fit: 'cover' },
+}
+
+const emptyDirs = () => {
   fs.emptyDirSync(IMAGE_CONTENT_AVIF)
-  const fileOutputPathAvif = path.join(
-    IMAGE_CONTENT_AVIF,
-    file.replace('.jpg', '.avif')
-  )
-  const fileOutputPathAvif1280w = path.join(
-    IMAGE_CONTENT_AVIF,
-    file.replace('.jpg', '_1280w.avif')
-  )
-  const fileOutputPathAvif640w = path.join(
-    IMAGE_CONTENT_AVIF,
-    file.replace('.jpg', '_640w.avif')
-  )
-  const fileOutputPathAvif320w = path.join(
-    IMAGE_CONTENT_AVIF,
-    file.replace('.jpg', '_320w.avif')
-  )
-  sharp(fileInputPath)
-    .avif({ quality: 50 })
-    .toFile(fileOutputPathAvif)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 1280 })
-    .avif({ quality: 50 })
-    .toFile(fileOutputPathAvif1280w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 640 })
-    .avif({ quality: 50 })
-    .toFile(fileOutputPathAvif640w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 320 })
-    .avif({ quality: 50 })
-    .toFile(fileOutputPathAvif320w)
-    .then(console.log)
-    .catch(console.error)
-}
-
-const processJpg = (file, fileInputPath) => {
   fs.emptyDirSync(IMAGE_CONTENT_JPG)
-  const fileOutputPathJpg = path.join(IMAGE_CONTENT_JPG, file)
-  const fileOutputPathJpg1280w = path.join(
-    IMAGE_CONTENT_JPG,
-    file.replace('.jpg', '_1280w.jpg')
-  )
-  const fileOutputPathJpg640w = path.join(
-    IMAGE_CONTENT_JPG,
-    file.replace('.jpg', '_640w.jpg')
-  )
-  const fileOutputPathJpgp320w = path.join(
-    IMAGE_CONTENT_JPG,
-    file.replace('.jpg', '_320w.jpg')
-  )
-
-  sharp(fileInputPath)
-    .jpeg({ quality: 70, progressive: true })
-    .toFile(fileOutputPathJpg)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 1280 })
-    .jpeg({ quality: 70, progressive: true })
-    .toFile(fileOutputPathJpg1280w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 640 })
-    .jpeg({ quality: 70, progressive: true })
-    .toFile(fileOutputPathJpg640w)
-    .then(console.log)
-    .catch(console.error)
-
-  sharp(fileInputPath)
-    .resize({ width: 320 })
-    .jpeg({ quality: 70, progressive: true })
-    .toFile(fileOutputPathJpgp320w)
-    .then(console.log)
-    .catch(console.error)
+  fs.emptyDirSync(IMAGE_CONTENT_WEBP)
+  fs.emptyDirSync(IMAGE_CONTENT_WEBP_FULL)
+  fs.emptyDirSync(IMAGE_CONTENT_WEBP_THUMBNAILS)
+  fs.emptyDirSync(IMAGE_CONTENT_AVIF_FULL)
+  fs.emptyDirSync(IMAGE_CONTENT_AVIF_THUMBNAILS)
+  fs.emptyDirSync(IMAGE_CONTENT_JPG_FULL)
+  fs.emptyDirSync(IMAGE_CONTENT_JPG_THUMBNAILS)
 }
 
-fs.promises.readdir(IMAGE_CONTENT_SOURCE).then((files) => {
-  fs.emptyDirSync(IMAGE_CONTENT_AVIF)
-  files.forEach((file) => {
-    const fileInputPath = path.join(IMAGE_CONTENT_SOURCE, file)
-
-    processWebp(file, fileInputPath)
-    processJpg(file, fileInputPath)
-    processAvif(file, fileInputPath)
+const transformWebp = ({
+  fileBuffer,
+  fileOutputPath,
+  sizeOptions,
+  quality,
+}) => {
+  return new Promise((resolve, reject) => {
+    sharp(fileBuffer)
+      .resize(sizeOptions)
+      .webp(quality)
+      .toFile(fileOutputPath)
+      .then(resolve)
+      .catch(reject)
   })
-})
+}
+const transformAvif = ({
+  fileBuffer,
+  fileOutputPath,
+  sizeOptions,
+  quality,
+}) => {
+  return new Promise((resolve, reject) => {
+    sharp(fileBuffer)
+      .resize(sizeOptions)
+      .avif(quality)
+      .toFile(fileOutputPath)
+      .then(resolve)
+      .catch(reject)
+  })
+}
+const transformJpg = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) => {
+  return new Promise((resolve, reject) => {
+    sharp(fileBuffer)
+      .resize(sizeOptions)
+      .jpeg(quality)
+      .toFile(fileOutputPath)
+      .then(resolve)
+      .catch(reject)
+  })
+}
+
+const processWebp = (fileBuffer, file) => {
+  try {
+    const quality = {
+      quality: 60,
+    }
+
+    const operations = []
+    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.webp`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(IMAGE_CONTENT_WEBP_FULL, convertedFileName),
+        sizeOptions,
+        quality,
+      })
+    })
+    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.webp`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(
+          IMAGE_CONTENT_WEBP_THUMBNAILS,
+          convertedFileName
+        ),
+        sizeOptions,
+        quality,
+      })
+    })
+    return Promise.all(operations.map(transformWebp))
+  } catch (error) {
+    console.error(error)
+  }
+}
+const processAvif = (fileBuffer, file) => {
+  try {
+    const quality = {
+      quality: 50,
+    }
+    const operations = []
+
+    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.avif`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(IMAGE_CONTENT_AVIF_FULL, convertedFileName),
+        sizeOptions,
+        quality,
+      })
+    })
+    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.avif`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(
+          IMAGE_CONTENT_AVIF_THUMBNAILS,
+          convertedFileName
+        ),
+        sizeOptions,
+        quality,
+      })
+    })
+    return Promise.all(operations.map(transformAvif))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const processJpg = (fileBuffer, file) => {
+  try {
+    const quality = {
+      quality: 70,
+    }
+    const operations = []
+
+    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.jpg`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(IMAGE_CONTENT_JPG_FULL, convertedFileName),
+        sizeOptions,
+        quality,
+      })
+    })
+    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
+      const convertedFileName = file.replace('.jpg', `_${key}.jpg`)
+      operations.push({
+        fileBuffer,
+        fileOutputPath: path.join(
+          IMAGE_CONTENT_JPG_THUMBNAILS,
+          convertedFileName
+        ),
+        sizeOptions,
+        quality,
+      })
+    })
+    return Promise.all(operations.map(transformJpg))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const main = async () => {
+  try {
+    emptyDirs()
+    const files = await fs.promises.readdir(IMAGE_CONTENT_SOURCE, {
+      withFileTypes: true,
+    })
+
+    for (const file of files) {
+      if (file.isFile()) {
+        const fileInputPath = path.join(IMAGE_CONTENT_SOURCE, file.name)
+        const fileBuffer = await fs.promises.readFile(fileInputPath)
+        await Promise.all([
+          processJpg(fileBuffer, file.name),
+          processWebp(fileBuffer, file.name),
+          processAvif(fileBuffer, file.name),
+        ])
+      }
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+main().then(console.info).catch(console.error)
