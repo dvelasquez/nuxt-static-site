@@ -25,18 +25,20 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-v4-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-v4-
 
       - name: Cache node_modules 📦
         uses: actions/cache@v2
         id: node_modules-cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node_modules-v4-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules-v4-
 
       - name: Install dependencies 👨🏻‍💻
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
@@ -52,11 +54,13 @@ jobs:
         uses: actions/cache@v2
         id: node_modules-cache-analysis
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node_modules-analysis-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node_modules-analysis-v4-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-analysis-
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules-analysis-v4-
+            ${{ runner.os }}-node_modules-v4-
 
       - name: Install dependencies 👨🏻‍💻
         if: steps.node_modules-cache-analysis.outputs.cache-hit != 'true'
@@ -112,14 +116,15 @@ jobs:
         uses: actions/cache@v2
         id: node_modules-cache-s3
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node_modules-s3-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-node_modules-s3-v4-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-s3-
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules-s3-v4-
+            ${{ runner.os }}-node_modules-v4-
 
       - name: Install dependencies 👨🏻‍💻
-        if: steps.node_modules-cache-s3.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
 
       - name: Build Application for PR 🛠
@@ -163,10 +168,12 @@ jobs:
         uses: actions/cache@v2
         id: node_modules-cache
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node_modules-v4-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-node_modules-v4-
 
       - name: Install dependencies 👨🏻‍💻
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
