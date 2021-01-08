@@ -211,6 +211,18 @@ jobs:
           CYPRESS_BASE_PATH: /pr/${{github.event.number}}/
 
 
+      - name: Warm cache using Lighthouse
+        id: lighthouse_warm_cache
+        uses: treosh/lighthouse-ci-action@v3
+        env:
+          GITHUB_PR_NUMBER: ${{github.event.number}}
+        with:
+          urls: |
+            https://panor.am/pr/${{github.event.number}}/
+            https://panor.am/pr/${{github.event.number}}/places/
+          uploadArtifacts: false # save results as an action artifacts
+          runs: 1
+
       - name: Audit URLs using Lighthouse
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@v3
