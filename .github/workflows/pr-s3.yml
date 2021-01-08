@@ -150,6 +150,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           spec: cypress/integration/warm-up-cache.spec.js
+          browser: chrome
+          headless: true
         env:
           CYPRESS_BASE_PATH: /pr/${{github.event.number}}/
 
