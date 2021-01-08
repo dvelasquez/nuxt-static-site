@@ -1,70 +1,11 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <picture>
-      <source
-        type="image/webp"
-        media="(max-width: 400)"
-        :srcset="
-          place.image
-            .replace('.jpg', '_400w.webp')
-            .replace('places', 'places/webp')
-        "
-      />
-      <source
-        type="image/webp"
-        media="(max-width: 768)"
-        :srcset="
-          place.image
-            .replace('.jpg', '_768w.webp')
-            .replace('places', 'places/webp')
-        "
-      />
-      <source
-        type="image/webp"
-        :srcset="
-          place.image
-            .replace('.jpg', '_400w.webp')
-            .replace('places', 'places/webp')
-        "
-      />
-      <source
-        type="image/jpg"
-        media="(max-width: 400)"
-        :srcset="
-          place.image
-            .replace('.jpg', '_400w.jpg')
-            .replace('places', 'places/webp')
-        "
-      />
-      <source
-        type="image/jpg"
-        media="(max-width: 768)"
-        :srcset="
-          place.image
-            .replace('.jpg', '_768w.jpg')
-            .replace('places', 'places/jpg')
-        "
-      />
-      <source
-        type="image/jpg"
-        :srcset="
-          place.image
-            .replace('.jpg', '_400w.jpg')
-            .replace('places', 'places/jpg')
-        "
-      />
-      <img
-        style="object-fit: cover"
-        height="200"
-        width="100%"
-        :src="
-          place.image
-            .replace('.jpg', '_400w.jpg')
-            .replace('places', 'places/jpg')
-        "
-        :loading="loading"
-      />
-    </picture>
+    <responsive-image
+      :image-name="place.image"
+      image-path="./content/places"
+      :height="200"
+      width="100%"
+    />
     <v-card-title>{{ place.name }}</v-card-title>
     <v-card-subtitle class="pb-0"> {{ place.subtitle }}</v-card-subtitle>
 
