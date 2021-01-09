@@ -1,68 +1,69 @@
 <template>
   <picture>
     <source
-      media="(max-width: 320px)"
-      :srcset="`${computedImages.avif.w320}`"
+      :media="content.avif.w320.media"
+      :srcset="content.avif.w320.url"
       type="image/avif"
     />
     <source
-      media="(max-width: 640px)"
-      :srcset="`${computedImages.avif.w640}`"
+      :media="content.avif.w640.media"
+      :srcset="content.avif.w640.url"
       type="image/avif"
     />
     <source
-      media="(max-width: 1280px)"
-      :srcset="`${computedImages.avif.w1280}`"
+      :media="content.avif.w1280.media"
+      :srcset="content.avif.w1280.url"
       type="image/avif"
     />
-    <source :srcset="`${computedImages.avif.original}`" type="image/avif" />
+    <source :srcset="content.avif.w1920.url" type="image/avif" />
 
     <source
-      media="(max-width: 320px)"
-      :srcset="`${computedImages.webp.w320}`"
+      :media="content.webp.w320.media"
+      :srcset="content.webp.w320.url"
       type="image/webp"
     />
     <source
-      media="(max-width: 640px)"
-      :srcset="`${computedImages.webp.w640}`"
+      :media="content.webp.w640.media"
+      :srcset="content.webp.w640.url"
       type="image/webp"
     />
     <source
-      media="(max-width: 1280px)"
-      :srcset="`${computedImages.webp.w1280}`"
+      :media="content.webp.w1280.media"
+      :srcset="content.webp.w1280.url"
       type="image/webp"
     />
-    <source :srcset="`${computedImages.webp.original}`" type="image/webp" />
+    <source :srcset="content.webp.w1920.url" type="image/webp" />
 
     <source
-      media="(max-width: 320px)"
-      :srcset="`${computedImages.jpg.w320}`"
+      :media="content.jpg.w320.media"
+      :srcset="content.jpg.w320.url"
       type="image/jpg"
     />
     <source
-      media="(max-width: 640px)"
-      :srcset="`${computedImages.jpg.w640}`"
+      :media="content.jpg.w640.media"
+      :srcset="content.jpg.w640.url"
       type="image/jpg"
     />
     <source
-      media="(max-width: 1280px)"
-      :srcset="`${computedImages.jpg.w1280}`"
+      :media="content.jpg.w1280.media"
+      :srcset="content.jpg.w1280.url"
       type="image/jpg"
     />
-    <source :srcset="`${computedImages.jpg.original}`" type="image/jpg" />
+    <source :srcset="content.jpg.w1920.url" type="image/jpg" />
 
     <img
       style="object-fit: cover"
       height="200"
       width="100%"
-      :src="computedImages.jpg.original"
+      :src="content.jpg.w1920.url"
       :loading="loading"
       decoding="async"
     />
   </picture>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
+import { ResponsiveImageContent } from '~/helpers/image-utils'
 
 export default defineComponent({
   props: {
@@ -74,12 +75,8 @@ export default defineComponent({
       type: String as () => string,
       required: true,
     },
-    imageName: {
-      type: String as () => string,
-      required: true,
-    },
-    imagePath: {
-      type: String as () => string,
+    content: {
+      type: Object as () => ResponsiveImageContent,
       required: true,
     },
     loading: {
@@ -87,31 +84,6 @@ export default defineComponent({
       required: false,
       default: 'lazy',
     },
-  },
-  setup(props) {
-    const computedImages = computed(() => ({
-      jpg: {
-        original: `${props.imagePath}/jpg/thumbnails/${props.imageName}.jpg`,
-        w1280: `${props.imagePath}/jpg/thumbnails/${props.imageName}_1280w.jpg`,
-        w640: `${props.imagePath}/jpg/thumbnails/${props.imageName}_640w.jpg`,
-        w320: `${props.imagePath}/jpg/thumbnails/${props.imageName}_320w.jpg`,
-      },
-      webp: {
-        original: `${props.imagePath}/webp/thumbnails/${props.imageName}.webp`,
-        w1280: `${props.imagePath}/webp/thumbnails/${props.imageName}_1280w.webp`,
-        w640: `${props.imagePath}/webp/thumbnails/${props.imageName}_640w.webp`,
-        w320: `${props.imagePath}/webp/thumbnails/${props.imageName}_320w.webp`,
-      },
-      avif: {
-        original: `${props.imagePath}/avif/thumbnails/${props.imageName}.avif`,
-        w1280: `${props.imagePath}/avif/thumbnails/${props.imageName}_1280w.avif`,
-        w640: `${props.imagePath}/avif/thumbnails/${props.imageName}_640w.avif`,
-        w320: `${props.imagePath}/avif/thumbnails/${props.imageName}_320w.avif`,
-      },
-    }))
-    return {
-      computedImages,
-    }
   },
 })
 </script>
