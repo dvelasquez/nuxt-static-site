@@ -2,7 +2,7 @@
   "name": "Pizzeria La Argentina",
   "slug": "pizzeria-la-argentina",
   "subtitle": "Mejor pizza al corte",
-  "image": "./content/places/pizzeria-la-argentina.jpg",
+  "image": "pizzeria-la-argentina",
   "location": {
     "fullAddress": "Av. Italia 989, Providencia, Región Metropolitana, Chile",
     "street": "Av. Italia 989",

@@ -1,9 +1,15 @@
 <template>
   <div>
-    <nuxt-link to="/">Home</nuxt-link>
-    <h2>Nuxt.js List</h2>
-    <div v-for="(place, index) in places" :key="place.slug">
-      <place-card :place="place" :loading="index < 2 ? 'eager' : 'lazy'" />
+    <div
+      v-for="(place, index) in places"
+      :key="place.slug"
+      class="places__item"
+    >
+      <place-card
+        :place="place"
+        :loading="index < 2 ? 'eager' : 'lazy'"
+        :responsive-image-content="images[place.slug]"
+      />
       <br />
     </div>
   </div>
@@ -11,42 +17,53 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import {
+  getImageThumbnails,
+  getPreloadLinks,
+  ResponsiveImageContent,
+} from '~/helpers/image-utils'
+import { Place } from '~/content/places'
+
 export default Vue.extend({
   async asyncData({ $content }) {
     const places = await $content('places').fetch()
+    const images: { [key: string]: ResponsiveImageContent } = {}
+    places.forEach((place: Place) => {
+      images[place.slug] = getImageThumbnails('./content/places', place.image)
+    })
     return {
       places,
+      images,
     }
   },
   head() {
-    const preloadFirstTwoImages: any[] = []
+    let preloadFirstTwoImages: any[] = []
     // @ts-ignore
     if (this.places.length > 0) {
       // @ts-ignore
       this.places.forEach((place, index) => {
         if (index < 2) {
-          preloadFirstTwoImages.push({
-            href: place.image,
-            as: 'image',
-            rel: 'preload',
-            type: 'image/jpg',
-            crossOrigin: 'crossorigin',
-          })
-          preloadFirstTwoImages.push({
-            href: place.image.replace('.jpg', '.webp'),
-            as: 'image',
-            rel: 'preload',
-            type: 'image/webp',
-            crossOrigin: 'crossorigin',
-          })
+          // @ts-ignore
+          const placeImages = this.images[place.slug]
+          preloadFirstTwoImages = getPreloadLinks(placeImages)
         }
       })
     }
     return {
       // @ts-ignore
       title: this.places.length + ' lugares donde quitar el hambre',
-      // link: preloadFirstTwoImages,
+      link: preloadFirstTwoImages,
     }
   },
 })
 </script>
+<style lang="scss">
+.places {
+  &__items {
+    content-visibility: auto;
+    contain-intrinsic-size: 372px;
+    height: 372px;
+    max-height: 372px;
+  }
+}
+</style>

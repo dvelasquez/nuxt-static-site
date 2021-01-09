@@ -32,7 +32,12 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/vuetify',
+      {
+        defaultAssets: false,
+      },
+    ],
     // https://purgecss.com/guides/nuxt.html#nuxt-js
     'nuxt-purgecss',
   ],
@@ -80,6 +85,7 @@ export default {
       'pages/**/*.vue',
       'plugins/**/*.js',
       'node_modules/vuetify/src/**/*.ts',
+      'node_modules/vuetify/src/**/*.js',
     ],
     styleExtensions: ['.css'],
     safelist: {
@@ -96,8 +102,11 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    extractCSS: true,
+    parallel: true,
     splitChunks: {
+      minSize: 20000,
+      maxSize: 60000,
+      enforceSizeThreshold: 50000,
       layouts: true,
       pages: true,
       commons: true,

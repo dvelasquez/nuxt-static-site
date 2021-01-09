@@ -11,11 +11,11 @@
       },
       {
         "metric": "cumulative-layout-shift",
-        "budget": 0.1
+        "budget": 0.15
       },
       {
         "metric": "largest-contentful-paint",
-        "budget": 2500
+        "budget": 3000
       },
       {
         "metric": "speed-index",
