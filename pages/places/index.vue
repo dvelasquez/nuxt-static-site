@@ -45,14 +45,12 @@ export default Vue.extend({
           if (placeImages) {
             Object.entries(placeImages).forEach(([imageType, images]: any) => {
               Object.entries(images).forEach(([, image]: any) => {
-                if (image && image.media && image.url) {
+                if (image && image.media && image.url && imageType !== 'jpg') {
                   preloadFirstTwoImages.push({
                     href: image.url,
-                    as: 'image',
                     rel: 'preload',
                     media: image.media,
                     type: `image/${imageType}`,
-                    crossOrigin: 'crossorigin',
                   })
                 }
               })

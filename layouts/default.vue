@@ -61,7 +61,7 @@ export default Vue.extend({
     return {
       clipped: false,
       drawer: false,
-      fixed: true,
+      fixed: false,
       items: [
         {
           icon: mdiApps,
