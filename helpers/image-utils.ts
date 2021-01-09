@@ -135,3 +135,23 @@ export const getImageFull = (
     },
   }
 }
+
+export const getPreloadLinks = (images: ResponsiveImageContent): any[] => {
+  const preloadLinks: any = []
+  if (images) {
+    Object.entries(images).forEach(([imageType, images]: any) => {
+      Object.entries(images).forEach(([, image]: any) => {
+        if (image && image.media && image.url && imageType !== 'jpg') {
+          preloadLinks.push({
+            href: image.url,
+            rel: 'preload',
+            media: image.media,
+            type: `image/${imageType}`,
+            as: 'image',
+          })
+        }
+      })
+    })
+  }
+  return preloadLinks
+}

@@ -1,8 +1,10 @@
 <template>
   <div>
-    <nuxt-link to="/">Home</nuxt-link>
-    <h2>Nuxt.js List</h2>
-    <div v-for="(place, index) in places" :key="place.slug">
+    <div
+      v-for="(place, index) in places"
+      :key="place.slug"
+      class="places__item"
+    >
       <place-card
         :place="place"
         :loading="index < 2 ? 'eager' : 'lazy'"
@@ -17,6 +19,7 @@
 import Vue from 'vue'
 import {
   getImageThumbnails,
+  getPreloadLinks,
   ResponsiveImageContent,
 } from '~/helpers/image-utils'
 import { Place } from '~/content/places'
@@ -34,7 +37,7 @@ export default Vue.extend({
     }
   },
   head() {
-    const preloadFirstTwoImages: any[] = []
+    let preloadFirstTwoImages: any[] = []
     // @ts-ignore
     if (this.places.length > 0) {
       // @ts-ignore
@@ -42,20 +45,7 @@ export default Vue.extend({
         if (index < 2) {
           // @ts-ignore
           const placeImages = this.images[place.slug]
-          if (placeImages) {
-            Object.entries(placeImages).forEach(([imageType, images]: any) => {
-              Object.entries(images).forEach(([, image]: any) => {
-                if (image && image.media && image.url && imageType !== 'jpg') {
-                  preloadFirstTwoImages.push({
-                    href: image.url,
-                    rel: 'preload',
-                    media: image.media,
-                    type: `image/${imageType}`,
-                  })
-                }
-              })
-            })
-          }
+          preloadFirstTwoImages = getPreloadLinks(placeImages)
         }
       })
     }
@@ -67,3 +57,13 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="scss">
+.places {
+  &__items {
+    content-visibility: auto;
+    contain-intrinsic-size: 372px;
+    height: 372px;
+    max-height: 372px;
+  }
+}
+</style>

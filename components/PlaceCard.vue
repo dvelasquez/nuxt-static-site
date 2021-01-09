@@ -56,8 +56,6 @@ export default defineComponent({
 .place-card {
   max-height: 348px;
   height: 348px;
-  contain-intrinsic-size: 348px;
-  content-visibility: auto;
 
   &__img-container {
     display: flex;
