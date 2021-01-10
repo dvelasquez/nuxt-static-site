@@ -1,29 +1,11 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
+    <LazyNavigationDrawer
+      v-if="drawer"
       :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+      :items="items"
+      :drawer="drawer"
+    />
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-btn icon @click.stop="drawer = !drawer">
         <v-icon>{{ icons.mdiMenu }}</v-icon>
@@ -43,17 +25,7 @@
 </template>
 
 <script lang="ts">
-import {
-  mdiMenu,
-  mdiApplication,
-  mdiMinus,
-  mdiRepeat,
-  mdiChevronRight,
-  mdiChevronLeft,
-  mdiChartBubble,
-  mdiApps,
-  mdiFood,
-} from '@mdi/js'
+import { mdiMenu, mdiApplication, mdiApps, mdiFood } from '@mdi/js'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -81,19 +53,9 @@ export default Vue.extend({
       icons: {
         mdiMenu,
         mdiApplication,
-        mdiMinus,
-        mdiRepeat,
-        mdiChevronRight,
-        mdiChevronLeft,
-        mdiChartBubble,
         mdiApps,
       },
     }
-  },
-  methods: {
-    getChevronIcon(miniVariant: boolean) {
-      return miniVariant ? mdiChevronRight : mdiChevronLeft
-    },
   },
 })
 </script>

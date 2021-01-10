@@ -14,9 +14,12 @@ const METRIC_NAMES = [
   'tbtFinal',
 ]
 
+const PERFORMANCE_ROUTE_CHANGE = 'performance:route-change'
+
 const perfumeSetup = (gtag) => {
-  new Perfume({
+  return new Perfume({
     analyticsTracker: ({ metricName, data, navigatorInformation }) => {
+      console.debug(metricName, data)
       if (METRIC_NAMES.includes(metricName)) {
         gtag('event', 'performance', {
           eventCategory: 'Perfume.js',
@@ -34,7 +37,7 @@ const perfumeSetup = (gtag) => {
   })
 }
 
-export default ({ app }) => {
+export default ({ app }, inject) => {
   /*
    ** Only run on client-side and only in production mode
    */
@@ -53,17 +56,26 @@ export default ({ app }) => {
 
   gtag('js', new Date())
   gtag('config', 'G-WYW56VRCNE')
-  perfumeSetup(gtag)
+  // initialise perfume.js
+  const perfume = perfumeSetup(gtag)
+  // attach the perfume instance to the window object
+  window.perfume = perfume
+  // make perfume available in VueJS as this.$perfume
+  inject('perfume', perfume)
+
+  app.router.beforeEach((to, from, next)=>{
+    perfume.start(PERFORMANCE_ROUTE_CHANGE)
+    next()
+  })
   /*
    ** Every time the route changes (fired on initialization too)
    */
   app.router.afterEach((to, from) => {
+    perfume.end(PERFORMANCE_ROUTE_CHANGE)
     /*
      ** We tell Google Analytics to add a `pageview`
      */
     gtag('set', 'page', to.fullPath)
     gtag('send', 'pageview')
-
-    perfumeSetup(gtag)
   })
 }
