@@ -107,7 +107,8 @@ export default {
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     analyze: true,
-    parallel: true,
+    parallel: false,
+    extractCSS: true,
     splitChunks: {
       minSize: 20000,
       maxSize: 60000,
