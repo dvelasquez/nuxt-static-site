@@ -51,7 +51,7 @@
     "babel-jest": "^26.5.0",
     "css-byebye": "^2.0.2",
     "cypress": "^6.2.1",
-    "eslint": "^7.17.0",
+    "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-nuxt": "^2.0.0",
