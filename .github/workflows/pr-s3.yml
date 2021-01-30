@@ -186,31 +186,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache node_modules 📦
-        uses: actions/cache@v2
-        id: node_modules-cache
-        with:
-          path: |
-            **/node_modules
-            ~/.cache/Cypress
-          key: ${{ runner.os }}-node_modules-v4-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-v4-
-
-      - name: Install dependencies 👨🏻‍💻
-        if: steps.node_modules-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          spec: cypress/integration/warm-up-cache.spec.js
-          browser: chrome
-          headless: true
-        env:
-          CYPRESS_BASE_PATH: /pr/${{github.event.number}}/
-
-
       - name: Warm cache using Lighthouse
         id: lighthouse_warm_cache
         uses: treosh/lighthouse-ci-action@v3

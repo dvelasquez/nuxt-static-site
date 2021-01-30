@@ -20,7 +20,11 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/composition-api'],
+  plugins: [
+    '@/plugins/composition-api',
+    // Google Analytics setup https://nuxtjs.org/faq/ga
+    { src: '~plugins/ga.js', mode: 'client' },
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -102,7 +106,9 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    parallel: true,
+    analyze: process.env.BUILD_ANALYZE || false,
+    parallel: false,
+    extractCSS: true,
     splitChunks: {
       minSize: 20000,
       maxSize: 60000,
