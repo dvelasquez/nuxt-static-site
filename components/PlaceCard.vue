@@ -52,27 +52,25 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .place-card {
   max-height: 348px;
   height: 348px;
+}
+.place-card__img-container {
+  display: flex;
+  height: 200px;
+  max-height: 200px;
+  width: 100%;
+}
+.place-card__img-container__img {
+  width: 100%;
+  position: absolute;
+}
 
-  &__img-container {
-    display: flex;
-    height: 200px;
-    max-height: 200px;
-    width: 100%;
-
-    &__img {
-      width: 100%;
-      position: absolute;
-    }
-
-    &__title {
-      z-index: 1;
-      align-self: flex-end;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-  }
+.place-card__img-container__title {
+  z-index: 1;
+  align-self: flex-end;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 </style>

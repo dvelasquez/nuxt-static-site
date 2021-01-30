@@ -20,11 +20,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default Vue.extend({
-  components: {
-    VuetifyLogo,
-  },
+  components: {},
 })
 </script>

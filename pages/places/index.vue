@@ -57,13 +57,11 @@ export default Vue.extend({
   },
 })
 </script>
-<style lang="scss">
-.places {
-  &__items {
-    content-visibility: auto;
-    contain-intrinsic-size: 372px;
-    height: 372px;
-    max-height: 372px;
-  }
+<style>
+.places__items {
+  content-visibility: auto;
+  contain-intrinsic-size: 372px;
+  height: 372px;
+  max-height: 372px;
 }
 </style>
