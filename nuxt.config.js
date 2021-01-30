@@ -106,7 +106,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    analyze: true,
+    analyze: process.env.BUILD_ANALYZE || false,
     parallel: false,
     extractCSS: true,
     splitChunks: {
