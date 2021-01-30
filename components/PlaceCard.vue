@@ -1,33 +1,39 @@
 <template>
-  <v-card class="mx-auto place-card">
-    <div class="place-card__img-container">
-      <responsive-image
-        class="place-card__img-container__img"
-        :content="responsiveImageContent"
-        :height="200"
-        width="100%"
-        :loading="loading"
-      />
-      <v-card-title class="place-card__img-container__title">{{
-        place.name
-      }}</v-card-title>
-    </div>
-    <v-card-subtitle class="pb-0"> {{ place.subtitle }}</v-card-subtitle>
+  <md-card>
+    <md-card-area md-inset>
+      <md-card-media class="place-card__img-container">
+        <responsive-image
+          class="place-card__img-container__img"
+          :content="responsiveImageContent"
+          :height="200"
+          width="100%"
+          :loading="loading"
+        />
+        <h2 class="place-card__img-container__title md-title"></h2>
+      </md-card-media>
+      <md-card-header>
+        <h2 class="md-title">{{ place.name }}</h2>
+        <div class="md-subhead">
+          <md-icon>location_on</md-icon>
+          <span>2 km</span>
+        </div>
+      </md-card-header>
 
-    <v-card-text class="text--primary">
-      <div style="text-transform: capitalize">
-        {{ place.categories.map((category) => category).join() }}
-      </div>
+      <md-card-content>
+        <div style="text-transform: capitalize">
+          {{ place.categories.map((category) => category).join() }}
+        </div>
 
-      <div>{{ place.location.street }}, {{ place.location.commune }}</div>
-    </v-card-text>
+        <div>{{ place.location.street }}, {{ place.location.commune }}</div>
+      </md-card-content>
 
-    <v-card-actions>
-      <v-btn color="orange" text> Compartir</v-btn>
+      <md-card-actions>
+        <md-button class="md-primary" text> Compartir</md-button>
 
-      <v-btn color="orange" text> Mas información</v-btn>
-    </v-card-actions>
-  </v-card>
+        <md-button class="md-accent" text> Mas información</md-button>
+      </md-card-actions>
+    </md-card-area>
+  </md-card>
 </template>
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'

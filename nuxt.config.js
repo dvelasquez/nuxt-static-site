@@ -33,6 +33,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    // https://purgecss.com/guides/nuxt.html#nuxt-js-plugin
+    'nuxt-purgecss',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -43,7 +45,13 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    // https://github.com/vaso2/nuxt-vue-material
+    'nuxt-vue-material',
   ],
+
+  vueMaterial: {
+    theme: 'default-dark',
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -56,13 +64,15 @@ export default {
     analyze: process.env.BUILD_ANALYZE || false,
     parallel: false,
     extractCSS: true,
-    splitChunks: {
-      minSize: 20000,
-      maxSize: 60000,
-      enforceSizeThreshold: 50000,
-      layouts: true,
-      pages: true,
-      commons: true,
+    optimizations: {
+      splitChunks: {
+        minSize: 0,
+        maxSize: 51200,
+        enforceSizeThreshold: 51200,
+        layouts: true,
+        pages: true,
+        commons: true,
+      },
     },
   },
 

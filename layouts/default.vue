@@ -1,47 +1,41 @@
 <template>
-  <v-app dark>
+  <div class="page-container md-layout-column">
+    <md-toolbar class="md-primary">
+      <md-button class="md-icon-button" @click="showNavigation = true">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <span class="md-title">{{ title }}</span>
+    </md-toolbar>
     <LazyNavigationDrawer
-      v-if="drawer"
-      :clipped="clipped"
+      v-if="showNavigation"
       :items="items"
-      :drawer="drawer"
+      :show-navigation="showNavigation"
+      @change-show-navigation="updateShowNavigation"
     />
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="drawer = !drawer">
-        <v-icon>{{ icons.mdiMenu }}</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-    </v-app-bar>
-    <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-main>
-    <v-footer :absolute="!fixed" app>
+    <md-content>
+      <nuxt />
+    </md-content>
+    <footer>
       <span>Panor.am&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+    </footer>
+  </div>
 </template>
 
 <script lang="ts">
-import { mdiMenu, mdiApplication, mdiApps, mdiFood } from '@mdi/js'
 import Vue from 'vue'
 
 export default Vue.extend({
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
+      showNavigation: false,
       items: [
         {
-          icon: mdiApps,
+          icon: 'home',
           title: 'Bienvenido',
           to: '/',
         },
         {
-          icon: mdiFood,
+          icon: 'local_dining',
           title: 'Lugares',
           to: '/places',
         },
@@ -50,12 +44,17 @@ export default Vue.extend({
       right: true,
       rightDrawer: false,
       title: 'Panor.am',
-      icons: {
-        mdiMenu,
-        mdiApplication,
-        mdiApps,
-      },
     }
+  },
+  methods: {
+    updateShowNavigation(showNavigation: boolean) {
+      this.showNavigation = showNavigation
+    },
   },
 })
 </script>
+<style scoped>
+.md-content {
+  padding: 1rem;
+}
+</style>

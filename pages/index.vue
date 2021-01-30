@@ -1,21 +1,21 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Bienvenido a la vista previa de Panor.am
-        </v-card-title>
-        <v-card-text> Aqui debiese ir un texto presentando o algo </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/places"> Empezar </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">Bienvenido a la vista previa de Panor.am</div>
+        <div class="md-subhead">
+          Aqui debiese ir un texto presentando o algo
+        </div>
+      </md-card-header>
+
+      <md-card-actions>
+        <v-spacer />
+        <md-button class="md-raised md-primary" nuxt to="/places">
+          Empezar
+        </md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
 </template>
 
 <script lang="ts">

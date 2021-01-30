@@ -1,49 +1,45 @@
 <template>
-  <v-navigation-drawer
-    v-model="internalDrawer"
-    :mini-variant="miniVariant"
-    :clipped="clipped"
-    fixed
-    app
-  >
-    <v-list>
-      <v-list-item
-        v-for="(item, i) in items"
-        :key="i"
+  <md-drawer :md-active.sync="internalShowNavigation" md-swipeable>
+    <md-toolbar class="md-transparent" md-elevation="0">
+      <span class="md-title">My App name</span>
+    </md-toolbar>
+
+    <md-list>
+      <md-list-item
+        v-for="(item, index) in items"
+        :key="index"
+        nuxt
         :to="item.to"
-        router
-        exact
       >
-        <v-list-item-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title v-text="item.title" />
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+        <md-icon>{{ item.icon }}</md-icon>
+        <span class="md-list-item-text">{{ item.title }}</span>
+      </md-list-item>
+    </md-list>
+  </md-drawer>
 </template>
 
 <script>
 export default {
   name: 'LazyNavigationDrawer',
   props: {
-    drawer: {
+    showNavigation: {
       type: Boolean,
       default: false,
     },
-    miniVariant: { type: Boolean, default: false },
-    clipped: { type: Boolean, default: false },
     items: {
       type: Array,
-      required: true,
+      // required: true,
     },
   },
   data() {
     return {
-      internalDrawer: this.drawer,
+      internalShowNavigation: this.showNavigation,
     }
+  },
+  watch: {
+    internalShowNavigation(val) {
+      this.$emit('change-show-navigation', val)
+    },
   },
   mounted() {
     console.log('this wea is mounted')
