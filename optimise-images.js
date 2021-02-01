@@ -45,163 +45,112 @@ const emptyDirs = () => {
   fs.emptyDirSync(IMAGE_CONTENT_JPG_THUMBNAILS)
 }
 
-const transformWebp = ({
+const transformWebp = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) =>
+  sharp(fileBuffer).resize(sizeOptions).webp(quality).toFile(fileOutputPath)
+
+const transformAvif = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) =>
+  sharp(fileBuffer).resize(sizeOptions).avif(quality).toFile(fileOutputPath)
+
+const transformJpg = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) =>
+  sharp(fileBuffer).resize(sizeOptions).jpeg(quality).toFile(fileOutputPath)
+
+const mapResize = ({ type, content, fileName, fileBuffer, quality }) => ([
+  key,
+  sizeOptions,
+]) => ({
   fileBuffer,
-  fileOutputPath,
+  fileOutputPath: path.join(
+    content,
+    fileName.replace('.jpg', `_${key}.${type}`)
+  ),
   sizeOptions,
   quality,
-}) => {
-  return new Promise((resolve, reject) => {
-    sharp(fileBuffer)
-      .resize(sizeOptions)
-      .webp(quality)
-      .toFile(fileOutputPath)
-      .then(resolve)
-      .catch(reject)
-  })
-}
-const transformAvif = ({
-  fileBuffer,
-  fileOutputPath,
-  sizeOptions,
-  quality,
-}) => {
-  return new Promise((resolve, reject) => {
-    sharp(fileBuffer)
-      .resize(sizeOptions)
-      .avif(quality)
-      .toFile(fileOutputPath)
-      .then(resolve)
-      .catch(reject)
-  })
-}
-const transformJpg = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) => {
-  return new Promise((resolve, reject) => {
-    sharp(fileBuffer)
-      .resize(sizeOptions)
-      .jpeg(quality)
-      .toFile(fileOutputPath)
-      .then(resolve)
-      .catch(reject)
-  })
-}
+})
 
-const processWebp = (fileBuffer, file) => {
+const process = ({
+  type,
+  contentFull,
+  qualityOption,
+  contentThumbnails,
+  transform,
+  originalResize,
+  thumbResize,
+}) => ({ fileBuffer, file }) => {
   try {
     const quality = {
-      quality: 60,
+      quality: qualityOption,
     }
 
-    const operations = []
-    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.webp`)
-      operations.push({
+    const originalMap = Object.entries(originalResize).map(
+      mapResize({
+        type,
+        content: contentFull,
+        fileName: file,
         fileBuffer,
-        fileOutputPath: path.join(IMAGE_CONTENT_WEBP_FULL, convertedFileName),
-        sizeOptions,
         quality,
       })
-    })
-    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.webp`)
-      operations.push({
+    )
+
+    const thumbMap = Object.entries(thumbResize).map(
+      mapResize({
+        type,
+        content: contentThumbnails,
+        fileName: file,
         fileBuffer,
-        fileOutputPath: path.join(
-          IMAGE_CONTENT_WEBP_THUMBNAILS,
-          convertedFileName
-        ),
-        sizeOptions,
         quality,
       })
-    })
-    return Promise.all(operations.map(transformWebp))
+    )
+
+    return Promise.all(originalMap.concat(thumbMap).map(transform))
   } catch (error) {
     console.error(error)
   }
 }
-const processAvif = (fileBuffer, file) => {
-  try {
-    const quality = {
-      quality: 50,
-    }
-    const operations = []
+const processWebp = process({
+  type: 'webp',
+  contentFull: IMAGE_CONTENT_WEBP_FULL,
+  qualityOption: 60,
+  contentThumbnails: IMAGE_CONTENT_WEBP_THUMBNAILS,
+  transform: transformWebp,
+  originalResize,
+  thumbResize,
+})
 
-    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.avif`)
-      operations.push({
-        fileBuffer,
-        fileOutputPath: path.join(IMAGE_CONTENT_AVIF_FULL, convertedFileName),
-        sizeOptions,
-        quality,
-      })
-    })
-    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.avif`)
-      operations.push({
-        fileBuffer,
-        fileOutputPath: path.join(
-          IMAGE_CONTENT_AVIF_THUMBNAILS,
-          convertedFileName
-        ),
-        sizeOptions,
-        quality,
-      })
-    })
-    return Promise.all(operations.map(transformAvif))
-  } catch (error) {
-    console.error(error)
-  }
-}
+const processAvif = process({
+  type: 'avif',
+  contentFull: IMAGE_CONTENT_AVIF_FULL,
+  qualityOption: 50,
+  contentThumbnails: IMAGE_CONTENT_AVIF_THUMBNAILS,
+  transform: transformAvif,
+  originalResize,
+  thumbResize,
+})
 
-const processJpg = (fileBuffer, file) => {
-  try {
-    const quality = {
-      quality: 70,
-    }
-    const operations = []
+const processJpg = process({
+  type: 'jpg',
+  contentFull: IMAGE_CONTENT_JPG_FULL,
+  qualityOption: 70,
+  contentThumbnails: IMAGE_CONTENT_JPG_THUMBNAILS,
+  transform: transformJpg,
+  originalResize,
+  thumbResize,
+})
 
-    Object.entries(originalResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.jpg`)
-      operations.push({
-        fileBuffer,
-        fileOutputPath: path.join(IMAGE_CONTENT_JPG_FULL, convertedFileName),
-        sizeOptions,
-        quality,
-      })
-    })
-    Object.entries(thumbResize).forEach(([key, sizeOptions]) => {
-      const convertedFileName = file.replace('.jpg', `_${key}.jpg`)
-      operations.push({
-        fileBuffer,
-        fileOutputPath: path.join(
-          IMAGE_CONTENT_JPG_THUMBNAILS,
-          convertedFileName
-        ),
-        sizeOptions,
-        quality,
-      })
-    })
-    return Promise.all(operations.map(transformJpg))
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-const main = async () => {
+const main = async ({ contentSource }) => {
   try {
     emptyDirs()
-    const files = await fs.promises.readdir(IMAGE_CONTENT_SOURCE, {
+    const files = await fs.promises.readdir(contentSource, {
       withFileTypes: true,
     })
 
     for (const file of files) {
       if (file.isFile()) {
-        const fileInputPath = path.join(IMAGE_CONTENT_SOURCE, file.name)
+        const fileInputPath = path.join(contentSource, file.name)
         const fileBuffer = await fs.promises.readFile(fileInputPath)
         await Promise.all([
-          processJpg(fileBuffer, file.name),
-          processWebp(fileBuffer, file.name),
-          processAvif(fileBuffer, file.name),
+          processJpg({ fileBuffer, file: file.name }),
+          processWebp({ fileBuffer, file: file.name }),
+          processAvif({ fileBuffer, file: file.name }),
         ])
       }
     }
@@ -210,4 +159,6 @@ const main = async () => {
   }
 }
 
-main().then(console.info).catch(console.error)
+main({ contentSource: IMAGE_CONTENT_SOURCE })
+  .then(console.info)
+  .catch(console.error)
