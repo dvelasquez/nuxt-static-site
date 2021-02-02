@@ -1,23 +1,34 @@
 <template>
-  <div class="page-container md-layout-column">
-    <md-toolbar class="md-primary">
-      <md-button class="md-icon-button" @click="showNavigation = true">
-        <md-icon>menu</md-icon>
-      </md-button>
-      <span class="md-title">{{ title }}</span>
-    </md-toolbar>
-    <LazyNavigationDrawer
-      v-if="showNavigation"
-      :items="items"
-      :show-navigation="showNavigation"
-      @change-show-navigation="updateShowNavigation"
+  <div class="page--top-app-bar">
+    <ui-top-app-bar
+      content-selector="#content-main"
+      :type="type"
+      :title="title"
+      @nav="showDrawer"
     />
-    <md-content>
+
+    <ui-drawer v-model="openDrawer" type="modal">
+      <ui-drawer-header>
+        <ui-drawer-title>Header here</ui-drawer-title>
+      </ui-drawer-header>
+      <ui-drawer-content>
+        <ui-list>
+          <ui-item active>
+            <ui-item-first-content>
+              <ui-icon>arrow_back</ui-icon>
+            </ui-item-first-content>
+            <ui-item-text-content>Back</ui-item-text-content>
+          </ui-item>
+          <ui-list-divider></ui-list-divider>
+        </ui-list>
+      </ui-drawer-content>
+    </ui-drawer>
+
+    <ui-drawer-backdrop></ui-drawer-backdrop>
+
+    <div id="content-main">
       <nuxt />
-    </md-content>
-    <footer>
-      <span>Panor.am&copy; {{ new Date().getFullYear() }}</span>
-    </footer>
+    </div>
   </div>
 </template>
 
@@ -27,34 +38,20 @@ import Vue from 'vue'
 export default Vue.extend({
   data() {
     return {
-      showNavigation: false,
-      items: [
-        {
-          icon: 'home',
-          title: 'Bienvenido',
-          to: '/',
-        },
-        {
-          icon: 'local_dining',
-          title: 'Lugares',
-          to: '/places',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+      type: 0,
       title: 'Panor.am',
+      openDrawer: false,
     }
   },
   methods: {
-    updateShowNavigation(showNavigation: boolean) {
-      this.showNavigation = showNavigation
+    showDrawer() {
+      this.openDrawer = true
     },
   },
 })
 </script>
-<style scoped>
-.md-content {
-  padding: 1rem;
+<style>
+body {
+  margin: 0;
 }
 </style>

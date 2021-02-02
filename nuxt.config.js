@@ -22,6 +22,7 @@ export default {
     '@/plugins/composition-api',
     // Google Analytics setup https://nuxtjs.org/faq/ga
     { src: '~plugins/ga.js', mode: 'client' },
+    '@/plugins/balm-ui',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -46,7 +47,7 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     // https://github.com/vaso2/nuxt-vue-material
-    'nuxt-vue-material',
+    // 'nuxt-vue-material',
   ],
 
   vueMaterial: {
@@ -73,6 +74,13 @@ export default {
         pages: true,
         commons: true,
       },
+    },
+    transpile: ['balm-ui'],
+    extend(config) {
+      config.resolve.alias.vue$ = 'vue/dist/vue.esm.js' // NOTE: `$alert`, `$confirm` and `$toast` required
+      config.resolve.alias['balm-ui-source'] = 'balm-ui/src/scripts'
+      config.resolve.alias['balm-ui-plus$'] = 'balm-ui/src/scripts/plus.js'
+      config.resolve.alias['balm-ui-css$'] = 'balm-ui/dist/balm-ui.css'
     },
   },
 

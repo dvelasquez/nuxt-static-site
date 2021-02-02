@@ -1,20 +1,25 @@
 <template>
   <div>
-    <md-card>
-      <md-card-header>
-        <div class="md-title">Bienvenido a la vista previa de Panor.am</div>
-        <div class="md-subhead">
+    <ui-card outlined>
+      <div>
+        <h1 :class="$tt('headline5')">
+          Bienvenido a la vista previa de Panor.am
+        </h1>
+        <ui-list-divider></ui-list-divider>
+        <div :class="$tt('subtitle2')">
           Aqui debiese ir un texto presentando o algo
         </div>
-      </md-card-header>
+      </div>
 
-      <md-card-actions>
-        <v-spacer />
-        <md-button class="md-raised md-primary" nuxt to="/places">
-          Empezar
-        </md-button>
-      </md-card-actions>
-    </md-card>
+      <ui-card-actions full-bleed>
+        <ui-button type="link">
+          <nuxt-link to="/places"> Empezar </nuxt-link>
+          <template #after>
+            <ui-icon>arrow_forward</ui-icon>
+          </template>
+        </ui-button>
+      </ui-card-actions>
+    </ui-card>
   </div>
 </template>
 
