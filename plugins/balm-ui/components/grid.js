@@ -1,4 +1,4 @@
-import 'balm-ui/components/grid/grid.css'
+import 'balm-ui/components/grid/grid.scss'
 import Vue from 'vue'
 import UiGridComponents from 'balm-ui-source/components/grid'
 import $grid from 'balm-ui/plugins/grid' // Optional

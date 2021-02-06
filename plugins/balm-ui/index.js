@@ -1,6 +1,7 @@
 // https://github.com/balmjs/balm-ui/issues/13#issuecomment-692555730
 // Import core CSS file
-import 'balm-ui/components/core.css'
+import './index.sass'
+
 // Components
 import './components/button'
 import './components/icon'

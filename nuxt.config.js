@@ -38,7 +38,6 @@ export default {
     [
       'nuxt-purgecss',
       {
-        enabled: true,
         mode: 'postcss',
         paths: [
           'components/**/*.vue',
@@ -60,8 +59,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    // https://github.com/vaso2/nuxt-vue-material
-    // 'nuxt-vue-material',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)

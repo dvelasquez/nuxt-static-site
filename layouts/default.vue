@@ -1,6 +1,7 @@
 <template>
   <div class="page--top-app-bar">
     <ui-top-app-bar
+      id="top-app-bar"
       content-selector="#content-main"
       :type="type"
       :title="title"
@@ -38,7 +39,7 @@ import Vue from 'vue'
 export default Vue.extend({
   data() {
     return {
-      type: 0,
+      type: 1,
       title: 'Panor.am',
       openDrawer: false,
     }
@@ -50,8 +51,19 @@ export default Vue.extend({
   },
 })
 </script>
-<style>
+<style lang="scss">
 body {
   margin: 0;
+}
+#top-app-bar {
+  background-color: white;
+  color: #000;
+}
+#top-app-bar
+  > div
+  > section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
+  > span.mdc-top-app-bar__brand
+  > button {
+  color: #000;
 }
 </style>

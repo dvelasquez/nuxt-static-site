@@ -9,19 +9,21 @@
           :loading="loading"
         />
       </ui-card-media>
-      <h2 :class="$tt('headline5')">
-        {{ place.name }}
-      </h2>
-      <div :class="$tt('subtitle2')">
-        <ui-icon>location_on</ui-icon>
-        <span>2 km</span>
-      </div>
-      <div style="text-transform: capitalize" :class="$tt('subtitle2')">
-        {{ place.categories.map((category) => category).join() }}
-      </div>
+      <div class="place-card--content">
+        <h2 :class="$tt('headline5')">
+          {{ place.name }}
+        </h2>
+        <div :class="$tt('subtitle2')">
+          <ui-icon>location_on</ui-icon>
+          <span>2 km</span>
+        </div>
+        <div style="text-transform: capitalize" :class="$tt('subtitle2')">
+          {{ place.categories.map((category) => category).join() }}
+        </div>
 
-      <div :class="$tt('subtitle2')">
-        {{ place.location.street }}, {{ place.location.commune }}
+        <div :class="$tt('subtitle2')">
+          {{ place.location.street }}, {{ place.location.commune }}
+        </div>
       </div>
     </ui-card-content>
     <ui-card-actions>
@@ -56,24 +58,7 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-.place-card {
-  max-height: 348px;
-  height: 348px;
-}
-.place-card__img-container {
-  display: flex;
-  height: 200px;
-  max-height: 200px;
-  width: 100%;
-}
-.place-card__img-container__img {
-  width: 100%;
-  position: absolute;
-}
-
-.place-card__img-container__title {
-  z-index: 1;
-  align-self: flex-end;
-  background-color: rgba(0, 0, 0, 0.6);
+.place-card--content {
+  padding: 16px;
 }
 </style>
