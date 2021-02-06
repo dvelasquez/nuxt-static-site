@@ -35,7 +35,21 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     // https://purgecss.com/guides/nuxt.html#nuxt-js-plugin
-    'nuxt-purgecss',
+    [
+      'nuxt-purgecss',
+      {
+        enabled: true,
+        mode: 'postcss',
+        paths: [
+          'components/**/*.vue',
+          'layouts/**/*.vue',
+          'pages/**/*.vue',
+          'plugins/**/*.js',
+          'nuxt.config.js',
+          'node_modules/balm-ui/**/*.*',
+        ],
+      },
+    ],
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -50,10 +64,6 @@ export default {
     // 'nuxt-vue-material',
   ],
 
-  vueMaterial: {
-    theme: 'default-dark',
-  },
-
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
@@ -64,7 +74,7 @@ export default {
   build: {
     analyze: process.env.BUILD_ANALYZE || false,
     parallel: false,
-    extractCSS: true,
+    extractCSS: false,
     optimizations: {
       splitChunks: {
         minSize: 0,
