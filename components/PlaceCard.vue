@@ -1,39 +1,36 @@
 <template>
-  <md-card>
-    <md-card-area md-inset>
-      <md-card-media class="place-card__img-container">
-        <responsive-image
-          class="place-card__img-container__img"
-          :content="responsiveImageContent"
-          :height="200"
-          width="100%"
-          :loading="loading"
-        />
-        <h2 class="place-card__img-container__title md-title"></h2>
-      </md-card-media>
-      <md-card-header>
-        <h2 class="md-title">{{ place.name }}</h2>
-        <div class="md-subhead">
-          <md-icon>location_on</md-icon>
+  <div>
+    <ui-card outlined>
+      <ui-card-content>
+        <ui-card-media>
+          <responsive-image
+            :content="responsiveImageContent"
+            :height="200"
+            width="100%"
+            :loading="loading"
+          />
+        </ui-card-media>
+        <h2 :class="$tt('headline5')">
+          {{ place.name }}
+        </h2>
+        <div :class="$tt('subtitle2')">
+          <ui-icon>location_on</ui-icon>
           <span>2 km</span>
         </div>
-      </md-card-header>
-
-      <md-card-content>
-        <div style="text-transform: capitalize">
+        <div style="text-transform: capitalize" :class="$tt('subtitle2')">
           {{ place.categories.map((category) => category).join() }}
         </div>
 
-        <div>{{ place.location.street }}, {{ place.location.commune }}</div>
-      </md-card-content>
-
-      <md-card-actions>
-        <md-button class="md-primary" text> Compartir</md-button>
-
-        <md-button class="md-accent" text> Mas información</md-button>
-      </md-card-actions>
-    </md-card-area>
-  </md-card>
+        <div :class="$tt('subtitle2')">
+          {{ place.location.street }}, {{ place.location.commune }}
+        </div>
+      </ui-card-content>
+      <ui-card-actions>
+        <ui-link to="/share">Compartir</ui-link>
+        <ui-link class="md-accent" to="/places/more">Mas información</ui-link>
+      </ui-card-actions>
+    </ui-card>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'

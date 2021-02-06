@@ -12,12 +12,12 @@
       </div>
 
       <ui-card-actions full-bleed>
-        <ui-button type="link">
-          <nuxt-link to="/places"> Empezar </nuxt-link>
+        <ui-link to="/places" raised>
+          Empezar
           <template #after>
             <ui-icon>arrow_forward</ui-icon>
           </template>
-        </ui-button>
+        </ui-link>
       </ui-card-actions>
     </ui-card>
   </div>
