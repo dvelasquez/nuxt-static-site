@@ -10,15 +10,21 @@
 
     <ui-drawer v-model="openDrawer" type="modal">
       <ui-drawer-header>
-        <ui-drawer-title>Header here</ui-drawer-title>
+        <ui-drawer-title>Opciones</ui-drawer-title>
       </ui-drawer-header>
       <ui-drawer-content>
         <ui-list>
           <ui-item active>
             <ui-item-first-content>
-              <ui-icon>arrow_back</ui-icon>
+              <ui-icon>home</ui-icon>
             </ui-item-first-content>
-            <ui-item-text-content>Back</ui-item-text-content>
+            <ui-item-text-content>Inicio</ui-item-text-content>
+          </ui-item>
+          <ui-item>
+            <ui-item-first-content>
+              <ui-icon>local_dining</ui-icon>
+            </ui-item-first-content>
+            <ui-item-text-content>Lugares</ui-item-text-content>
           </ui-item>
           <ui-list-divider></ui-list-divider>
         </ui-list>

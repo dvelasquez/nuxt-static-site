@@ -3,7 +3,7 @@
     <ui-grid-cell
       v-for="(place, index) in places"
       :key="place.slug"
-      class="places__item"
+      class="places__items"
     >
       <place-card
         :place="place"
@@ -60,8 +60,8 @@ export default Vue.extend({
 <style>
 .places__items {
   content-visibility: auto;
-  contain-intrinsic-size: 372px;
-  height: 372px;
-  max-height: 372px;
+  contain-intrinsic-size: 450px;
+  height: 450px;
+  max-height: 450px;
 }
 </style>

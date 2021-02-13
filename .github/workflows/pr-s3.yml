@@ -209,6 +209,7 @@ jobs:
           urls: |
             https://panor.am/pr/${{github.event.number}}/
             https://panor.am/pr/${{github.event.number}}/places/
+            https://panor.am/pr/${{github.event.number}}/places/don-peyo
           budgetPath: ./budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true
