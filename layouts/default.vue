@@ -1,61 +1,69 @@
 <template>
-  <v-app dark>
-    <LazyNavigationDrawer
-      v-if="drawer"
-      :clipped="clipped"
-      :items="items"
-      :drawer="drawer"
+  <div class="page--top-app-bar">
+    <ui-top-app-bar
+      id="top-app-bar"
+      content-selector="#content-main"
+      :type="type"
+      :title="title"
+      @nav="showDrawer"
     />
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="drawer = !drawer">
-        <v-icon>{{ icons.mdiMenu }}</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-    </v-app-bar>
-    <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>Panor.am&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+
+    <ui-drawer v-model="openDrawer" type="modal">
+      <ui-drawer-header>
+        <ui-drawer-title>Header here</ui-drawer-title>
+      </ui-drawer-header>
+      <ui-drawer-content>
+        <ui-list>
+          <ui-item active>
+            <ui-item-first-content>
+              <ui-icon>arrow_back</ui-icon>
+            </ui-item-first-content>
+            <ui-item-text-content>Back</ui-item-text-content>
+          </ui-item>
+          <ui-list-divider></ui-list-divider>
+        </ui-list>
+      </ui-drawer-content>
+    </ui-drawer>
+
+    <ui-drawer-backdrop></ui-drawer-backdrop>
+
+    <div id="content-main">
+      <nuxt />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { mdiMenu, mdiApplication, mdiApps, mdiFood } from '@mdi/js'
 import Vue from 'vue'
 
 export default Vue.extend({
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: mdiApps,
-          title: 'Bienvenido',
-          to: '/',
-        },
-        {
-          icon: mdiFood,
-          title: 'Lugares',
-          to: '/places',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
+      type: 1,
       title: 'Panor.am',
-      icons: {
-        mdiMenu,
-        mdiApplication,
-        mdiApps,
-      },
+      openDrawer: false,
     }
+  },
+  methods: {
+    showDrawer() {
+      this.openDrawer = true
+    },
   },
 })
 </script>
+<style lang="scss">
+body {
+  margin: 0;
+}
+#top-app-bar {
+  background-color: white;
+  color: #000;
+}
+#top-app-bar
+  > div
+  > section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
+  > span.mdc-top-app-bar__brand
+  > button {
+  color: #000;
+}
+</style>

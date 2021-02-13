@@ -1,30 +1,34 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Bienvenido a la vista previa de Panor.am
-        </v-card-title>
-        <v-card-text> Aqui debiese ir un texto presentando o algo </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/places"> Empezar </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <ui-grid>
+    <ui-grid-cell>
+      <ui-card outlined>
+        <div>
+          <h1 :class="$tt('headline5')">
+            Bienvenido a la vista previa de Panor.am
+          </h1>
+          <ui-list-divider></ui-list-divider>
+          <div :class="$tt('subtitle2')">
+            Aqui debiese ir un texto presentando o algo
+          </div>
+        </div>
+
+        <ui-card-actions full-bleed>
+          <ui-link to="/places" raised>
+            Empezar
+            <template #after>
+              <ui-icon>arrow_forward</ui-icon>
+            </template>
+          </ui-link>
+        </ui-card-actions>
+      </ui-card>
+    </ui-grid-cell>
+  </ui-grid>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default Vue.extend({
-  components: {
-    VuetifyLogo,
-  },
+  components: {},
 })
 </script>

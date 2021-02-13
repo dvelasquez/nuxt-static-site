@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div
+  <ui-grid>
+    <ui-grid-cell
       v-for="(place, index) in places"
       :key="place.slug"
       class="places__item"
@@ -11,8 +11,8 @@
         :responsive-image-content="images[place.slug]"
       />
       <br />
-    </div>
-  </div>
+    </ui-grid-cell>
+  </ui-grid>
 </template>
 
 <script lang="ts">
@@ -57,13 +57,11 @@ export default Vue.extend({
   },
 })
 </script>
-<style lang="scss">
-.places {
-  &__items {
-    content-visibility: auto;
-    contain-intrinsic-size: 372px;
-    height: 372px;
-    max-height: 372px;
-  }
+<style>
+.places__items {
+  content-visibility: auto;
+  contain-intrinsic-size: 372px;
+  height: 372px;
+  max-height: 372px;
 }
 </style>
