@@ -4,9 +4,20 @@
       id="top-app-bar"
       content-selector="#content-main"
       :type="type"
-      :title="title"
       @nav="showDrawer"
-    />
+    >
+      <template #toolbar>
+        <ui-icon-button
+          icon="search"
+          class="mdc-theme--primary"
+        ></ui-icon-button
+        ><ui-icon-button icon="tune" class="mdc-theme--primary"></ui-icon-button
+        ><ui-icon-button
+          icon="location_on"
+          class="mdc-theme--primary"
+        ></ui-icon-button>
+      </template>
+    </ui-top-app-bar>
 
     <ui-drawer v-model="openDrawer" type="modal">
       <ui-drawer-header>
@@ -46,7 +57,6 @@ export default Vue.extend({
   data() {
     return {
       type: 1,
-      title: 'Panor.am',
       openDrawer: false,
     }
   },
@@ -70,6 +80,6 @@ body {
   > section.mdc-top-app-bar__section.mdc-top-app-bar__section--align-start
   > span.mdc-top-app-bar__brand
   > button {
-  color: #000;
+  color: #ee534f;
 }
 </style>

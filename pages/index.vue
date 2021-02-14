@@ -1,6 +1,11 @@
 <template>
   <ui-grid>
     <ui-grid-cell>
+      <ui-tab-bar v-model="active" class="hero-demo-tab-bar">
+        <ui-tab v-for="(item, index) in list" :key="index">{{ item }}</ui-tab>
+      </ui-tab-bar>
+    </ui-grid-cell>
+    <ui-grid-cell>
       <ui-card outlined>
         <div>
           <h1 :class="$tt('headline5')">
@@ -30,5 +35,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
   components: {},
+  data() {
+    return {
+      active: 1,
+      list: ['Restaurant', 'Bar', 'Cafetería', 'Pastelería', 'Botillería'],
+    }
+  },
 })
 </script>
+<style lang="scss">
+//@use '~@material/tab-bar' with (
+//$density-scale: density-variables.$default-scale
+//);
+</style>
