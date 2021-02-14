@@ -11,6 +11,8 @@ import './components/list'
 import './components/top-app-bar'
 import './components/grid'
 import './components/drawer'
+import './components/textfield'
+import './components/tabs'
 
 // Plugins
 import './plugins/typography'

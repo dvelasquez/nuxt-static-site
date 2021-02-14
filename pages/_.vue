@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ place }}
+    <p>{{ place }}</p>
   </div>
 </template>
 

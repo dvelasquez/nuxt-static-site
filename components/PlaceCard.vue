@@ -1,5 +1,5 @@
 <template>
-  <ui-card outlined>
+  <ui-card outlined class="place-card">
     <ui-card-content>
       <ui-card-media>
         <responsive-image
