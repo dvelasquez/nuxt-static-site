@@ -1,22 +1,17 @@
 <template>
   <div>
-    <ui-tab-bar v-model="active" class="hero-demo-tab-bar">
-      <ui-tab v-for="(item, index) in list" :key="index">{{ item }}</ui-tab>
-    </ui-tab-bar>
-    <ui-grid v-if="listActive">
-      <ui-grid-cell
-        v-for="(place, index) in places"
-        :key="place.slug"
-        class="places__items"
-      >
-        <place-card
-          :place="place"
-          :loading="index < 2 ? 'eager' : 'lazy'"
-          :responsive-image-content="images[place.slug]"
-        />
-        <br />
-      </ui-grid-cell>
-    </ui-grid>
+    <div
+      v-for="(place, index) in places"
+      :key="place.slug"
+      class="places__item"
+    >
+      <place-card
+        :place="place"
+        :loading="index < 2 ? 'eager' : 'lazy'"
+        :responsive-image-content="images[place.slug]"
+      />
+      <br />
+    </div>
   </div>
 </template>
 
@@ -30,7 +25,6 @@ import {
 import { Place } from '~/content/places'
 
 export default Vue.extend({
-  components: {},
   async asyncData({ $content }) {
     const places = await $content('places').fetch()
     const images: { [key: string]: ResponsiveImageContent } = {}
@@ -40,14 +34,6 @@ export default Vue.extend({
     return {
       places,
       images,
-    }
-  },
-  data() {
-    return {
-      active: 1,
-      listActive: true,
-      mapActive: false,
-      list: ['Restaurant', 'Bar', 'Cafetería', 'Pastelería', 'Botillería'],
     }
   },
   head() {
@@ -72,25 +58,12 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss">
-//@use '~@material/density/variables' as density-variables;
-//@use '~@material/tab/variables' as tab-variables;
-//
-//$height: tab-variables.$height;
-//$minimum-height: 30px;
-//$maximum-height: 30px;
-
-@use '~@material/tab' with (
-  $icon-size: 24px,
-  $height: 24px,
-  $horizontal-padding: 24px,
-  $text-label-opacity: 0.6,
-  $icon-opacity: 0.54,
-);
-
-.places__items {
-  content-visibility: auto;
-  contain-intrinsic-size: 450px;
-  height: 450px;
-  max-height: 450px;
+.places {
+  &__items {
+    content-visibility: auto;
+    contain-intrinsic-size: 372px;
+    height: 372px;
+    max-height: 372px;
+  }
 }
 </style>
