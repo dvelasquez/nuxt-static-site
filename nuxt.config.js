@@ -1,3 +1,5 @@
+import colors from 'vuetify/es5/util/colors'
+
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
@@ -22,7 +24,6 @@ export default {
     '@/plugins/composition-api',
     // Google Analytics setup https://nuxtjs.org/faq/ga
     { src: '~plugins/ga.js', mode: 'client' },
-    '@/plugins/balm-ui',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -35,20 +36,10 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     // https://purgecss.com/guides/nuxt.html#nuxt-js-plugin
-    [
-      'nuxt-purgecss',
-      {
-        mode: 'postcss',
-        paths: [
-          'components/**/*.vue',
-          'layouts/**/*.vue',
-          'pages/**/*.vue',
-          'plugins/**/*.js',
-          'nuxt.config.js',
-          'node_modules/balm-ui/**/*.*',
-        ],
-      },
-    ],
+    // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/vuetify',
+    // https://purgecss.com/guides/nuxt.html#nuxt-js
+    'nuxt-purgecss',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -67,11 +58,53 @@ export default {
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
 
+  // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
+  vuetify: {
+    treeShake: true,
+    customVariables: ['~/assets/variables.scss'],
+    defaultAssets: false,
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+        },
+      },
+    },
+  },
+
+  purgeCSS: {
+    content: [
+      'components/**/*.vue',
+      'layouts/**/*.vue',
+      'pages/**/*.vue',
+      'plugins/**/*.js',
+      'node_modules/vuetify/src/**/*.ts',
+      'node_modules/vuetify/src/**/*.js',
+    ],
+    styleExtensions: ['.css'],
+    safelist: {
+      standard: ['body', 'html', 'nuxt-progress'],
+      deep: [
+        /page-enter/,
+        /page-leave/,
+        /dialog-transition/,
+        /tab-transition/,
+        /tab-reversetransition/,
+      ],
+    },
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     analyze: process.env.BUILD_ANALYZE || false,
     parallel: false,
-    extractCSS: false,
+    extractCSS: true,
     optimizations: {
       splitChunks: {
         minSize: 0,
@@ -81,13 +114,6 @@ export default {
         pages: true,
         commons: true,
       },
-    },
-    transpile: ['balm-ui'],
-    extend(config) {
-      config.resolve.alias.vue$ = 'vue/dist/vue.esm.js' // NOTE: `$alert`, `$confirm` and `$toast` required
-      config.resolve.alias['balm-ui-source'] = 'balm-ui/src/scripts'
-      config.resolve.alias['balm-ui-plus$'] = 'balm-ui/src/scripts/plus.js'
-      config.resolve.alias['balm-ui-css$'] = 'balm-ui/dist/balm-ui.css'
     },
   },
 
