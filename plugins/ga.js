@@ -41,11 +41,11 @@ export default ({ app }, inject) => {
   /*
    ** Only run on client-side and only in production mode
    */
-  // if (process.env.NODE_ENV !== 'production')
-  //   return /*
-  //    ** Include Google Analytics Script
-  //    */
-  // ;
+  if (process.env.NODE_ENV !== 'production')
+    return /*
+     ** Include Google Analytics Script
+     */
+  ;
   console.debug('loading Google Analytics')
 
   window.dataLayer = window.dataLayer || []
