@@ -7,7 +7,7 @@
       :drawer="drawer"
     />
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-btn icon @click.stop="drawer = !drawer">
+      <v-btn icon aria-label="menu" @click.stop="drawer = !drawer">
         <v-icon>{{ icons.mdiMenu }}</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
