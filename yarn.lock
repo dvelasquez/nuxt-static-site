@@ -3801,10 +3801,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-balm-ui@^8.21.1:
-  version "8.21.1"
-  resolved "https://registry.yarnpkg.com/balm-ui/-/balm-ui-8.21.1.tgz#58ab4a62629e2e3a81727afd46716e45f165eef0"
-  integrity sha512-0jVDUqkmQxUzO9sYwP0m9qgTmDM2C7ULHOE6xugVGYAzvP82zlF+35yuqzYD5/RQnfftjSZsB/unOHXIt0QQ6Q==
+balm-ui@^8.22.0:
+  version "8.22.0"
+  resolved "https://registry.yarnpkg.com/balm-ui/-/balm-ui-8.22.0.tgz#241cc618a2cf337dfe6b3627bb5b846720d6d109"
+  integrity sha512-s6HNnxSA0Ualn43OTWDc58kppisuCjcPtNllz/sE8diPqRbaz2KfePbqf0nnLo9HHZlY4WwaQBPOsYNWB9+n5A==
   dependencies:
     deepmerge "^4.2.2"
     flatpickr "^4.6.9"
