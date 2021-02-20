@@ -194,7 +194,7 @@ jobs:
         with:
           urls: |
             https://panor.am/pr/${{github.event.number}}/
-            https://panor.am/pr/${{github.event.number}}/places/don-peyo
+            https://panor.am/pr/${{github.event.number}}/places/el-circo
           uploadArtifacts: false # save results as an action artifacts
           runs: 1
 
@@ -208,7 +208,7 @@ jobs:
         with:
           urls: |
             https://panor.am/pr/${{github.event.number}}/
-            https://panor.am/pr/${{github.event.number}}/places/don-peyo
+            https://panor.am/pr/${{github.event.number}}/places/el-circo
           budgetPath: ./budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true

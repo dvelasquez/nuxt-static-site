@@ -47,7 +47,9 @@
           </v-row>
           <v-row>
             <v-col>
-              <p class="text-caption">{{ place.phone.join(',') }}</p>
+              <p v-if="place.phone" class="text-caption">
+                {{ place.phone.join(',') }}
+              </p>
               <p class="text-caption">{{ place.web }}</p>
               <p class="text-caption">
                 <v-icon v-if="place.facebook">{{ mdiFacebook }}</v-icon>
