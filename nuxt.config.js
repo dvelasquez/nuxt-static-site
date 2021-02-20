@@ -35,9 +35,37 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
-    // https://purgecss.com/guides/nuxt.html#nuxt-js-plugin
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/vuetify',
+      {
+        // treeShake: true,
+        // customVariables: ['~/assets/variables.scss'],
+        defaultAssets: false,
+        theme: {
+          dark: false,
+          themes: {
+            dark: {
+              primary: colors.blue.darken2,
+              accent: colors.grey.darken3,
+              secondary: colors.amber.darken3,
+              info: colors.teal.lighten1,
+              warning: colors.amber.base,
+              error: colors.deepOrange.accent4,
+              success: colors.green.accent3,
+            },
+            light: {
+              primary: '#EE534F',
+              secondary: '#7AC843',
+              accent: colors.teal.base,
+              info: colors.amber.base,
+              error: colors.red.base,
+              success: colors.green.base,
+            },
+          },
+        },
+      },
+    ],
     // https://purgecss.com/guides/nuxt.html#nuxt-js
     'nuxt-purgecss',
   ],
@@ -57,27 +85,6 @@ export default {
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
-
-  // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
-  vuetify: {
-    treeShake: true,
-    customVariables: ['~/assets/variables.scss'],
-    defaultAssets: false,
-    theme: {
-      dark: false,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-      },
-    },
-  },
 
   purgeCSS: {
     content: [

@@ -1,12 +1,4 @@
-// TODO: this list should be outsourced since it can be modified by the users
-export const placeCategories = [
-  'foodtruck',
-  'pizza',
-  'chilena',
-  'peruana',
-] as const
-export type PlaceCategories = typeof placeCategories[number]
-
+/* eslint-disable camelcase */
 export interface Place {
   name: string
   slug: string
@@ -15,12 +7,21 @@ export interface Place {
   location: {
     fullAddress: string
     street: string
+    street2?: string
     commune: string
     region: string
+    country: string
     coordinates: {
       latitude: number
       longitude: number
     }
   }
-  categories: Array<PlaceCategories>
+  food_types: string
+  working_hours: string
+  payment_methods: string
+  phone?: string[]
+  instagram: string
+  facebook?: string
+  web?: string
+  delivery: boolean
 }

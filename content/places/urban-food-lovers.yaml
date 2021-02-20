@@ -1,0 +1,21 @@
+name: Urbanfoodlovers
+slug: urban-food-lovers
+subtitle: Restaurant
+image: urban-food-lovers
+location:
+  street: Av. Irarrázaval 3192
+  street2: local 14
+  commune: Ñuñoa
+  region: Región Metropolitana
+  country: Chile
+  coordinates:
+    latitude: -33.4547372
+    longitude: -70.5998628
+food_types: Pizzería
+working_hours: Lunes a sábado 13.00 a 22.30 hrs
+payment_methods: Efectivo - redcompra - transferencia –fpay
+phone:
+  - +56988387268
+instagram: "@urbanfoodlovers"
+web: https://www.urbanfoodlovers.cl
+delivery: true
