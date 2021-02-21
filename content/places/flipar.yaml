@@ -12,7 +12,7 @@ location:
     longitude: -70.6433508
 food_types: Street Food
 working_hours:  Lunes a Domingo 12.00 a 20.45 hrs
-payment_methods: Débito Crédito Efectivo
+payment_methods: Débito/Crédito/Efectivo
 instagram: "@fliparlastarria"
 web: https://www.flipar.cl/
 delivery: true

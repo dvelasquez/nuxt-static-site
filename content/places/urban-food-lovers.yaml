@@ -13,9 +13,9 @@ location:
     longitude: -70.5998628
 food_types: Pizzería
 working_hours: Lunes a sábado 13.00 a 22.30 hrs
-payment_methods: Efectivo - redcompra - transferencia –fpay
+payment_methods: Efectivo/RedCompra/Transferencia/Fpay
 phone:
-  - +56988387268
+  - "+56988387268"
 instagram: "@urbanfoodlovers"
 web: https://www.urbanfoodlovers.cl
 delivery: true

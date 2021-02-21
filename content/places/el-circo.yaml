@@ -3,7 +3,7 @@ slug: el-circo
 subtitle: Restaurant
 image: el-circo
 location:
-  street: Av. providencia 1070
+  street: Av. Providencia 1070
   commune: Providencia
   region: Región Metropolitana
   country: Chile
@@ -14,7 +14,7 @@ food_types: Sanguchería y otros platos
 working_hours: Lunes a Viernes 8:30 a 22:00 / Sábado y Domingo 12:30 a 22:00
 payment_methods: Transferencia
 phone:
-  - +56993931144
+  - "+56993931144"
 instagram: "@circo.cl"
 web: https://elcirco.cl/
 delivery: true

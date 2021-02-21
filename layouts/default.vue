@@ -32,7 +32,7 @@
     <v-main>
       <nuxt />
     </v-main>
-    <v-footer :absolute="!fixed" app>
+    <v-footer v-if="showFooter" :absolute="!fixed" app>
       <span>Panor.am&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -43,7 +43,6 @@ import {
   mdiMenu,
   mdiApplication,
   mdiApps,
-  mdiFood,
   mdiMapMarker,
   mdiTune,
 } from '@mdi/js'
@@ -54,16 +53,12 @@ export default Vue.extend({
     clipped: false,
     drawer: false,
     fixed: false,
+    showFooter: false,
     items: [
       {
         icon: mdiApps,
-        title: 'Bienvenido',
-        to: '/',
-      },
-      {
-        icon: mdiFood,
         title: 'Lugares',
-        to: '/places',
+        to: '/',
       },
     ],
     miniVariant: false,

@@ -32,11 +32,11 @@
   </v-card>
 </template>
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import Vue from 'vue'
 import { Place } from '~/content/places'
 import { ResponsiveImageContent } from '~/helpers/image-utils'
 
-export default defineComponent({
+export default Vue.extend({
   props: {
     place: {
       type: Object as () => Place,

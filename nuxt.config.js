@@ -21,7 +21,6 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/composition-api',
     // Google Analytics setup https://nuxtjs.org/faq/ga
     { src: '~plugins/ga.js', mode: 'client' },
   ],
@@ -87,6 +86,7 @@ export default {
   content: {},
 
   purgeCSS: {
+    // enabled: true,
     content: [
       'components/**/*.vue',
       'layouts/**/*.vue',
@@ -95,7 +95,7 @@ export default {
       'node_modules/vuetify/src/**/*.ts',
       'node_modules/vuetify/src/**/*.js',
     ],
-    styleExtensions: ['.css'],
+    styleExtensions: ['.css', '.scss'],
     safelist: {
       standard: ['body', 'html', 'nuxt-progress'],
       deep: [

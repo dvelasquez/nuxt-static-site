@@ -11,10 +11,10 @@ location:
     latitude: -33.4501379
     longitude: -70.6269918
 food_types: Sanguchería y otros platos
-working_hours: Lunes a sábado de 13:00 a 21:00 la cocina
-payment_methods: Efectivo / tarjetas / transferencias
+working_hours: Lunes a Sábado de 13:00 a 21:00 la cocina
+payment_methods: Efectivo/Tarjetas/Transferencias
 phone:
-  - +56987750961
+  - "+56987750961"
 instagram: "@fuenteitalia"
 facebook: fuente italia
 web: https://www.fuenteitalia.cl
