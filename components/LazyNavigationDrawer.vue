@@ -45,8 +45,6 @@ export default {
       internalDrawer: this.drawer,
     }
   },
-  mounted() {
-    console.log('this wea is mounted')
-  },
+  mounted() {},
 }
 </script>

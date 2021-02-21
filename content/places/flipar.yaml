@@ -1,0 +1,18 @@
+name: Flipar
+slug: flipar
+subtitle: Restaurant
+image: flipar
+location:
+  street: Merced 301
+  commune: Santiago
+  region: Región Metropolitana
+  country: Chile
+  coordinates:
+    latitude: -33.4370799
+    longitude: -70.6433508
+food_types: Street Food
+working_hours:  Lunes a Domingo 12.00 a 20.45 hrs
+payment_methods: Débito/Crédito/Efectivo
+instagram: "@fliparlastarria"
+web: https://www.flipar.cl/
+delivery: true

@@ -1,11 +1,12 @@
 <template>
   <div>
+    <header-tabs></header-tabs>
     <div
       v-for="(place, index) in places"
       :key="place.slug"
       class="places__item"
     >
-      <place-card
+      <place-list-card
         :place="place"
         :loading="index < 2 ? 'eager' : 'lazy'"
         :responsive-image-content="images[place.slug]"

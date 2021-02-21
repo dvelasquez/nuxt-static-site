@@ -1,0 +1,23 @@
+name: ChoPebre, Pebre de autor
+slug: cho-pebre
+subtitle: Delivery Gastronómico
+image: cho-pebre
+location:
+  street: Galvarino Gallardo 1933
+  street2: depto 704
+  commune: Providencia
+  region: Región Metropolitana
+  country: Chile
+  coordinates:
+    latitude: -33.4300461
+    longitude: -70.6137503
+food_types: Conservas y otros productos /Pebre de autor y Sopaipillas (Chopaipillas) de verduras, conservas, quesos y otros.
+working_hours: Lunes a Viernes de 10.00 a 20.00 hrs. / Sábado de 10:00 a 13:00 hrs.
+payment_methods: Transferencia
+phone:
+  - "+56975268609"
+  - "+56966299770"
+instagram: "@chopebre"
+facebook: ChoPebre
+web: https://www.chopebre.cl
+delivery: true
