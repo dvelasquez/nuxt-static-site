@@ -39,7 +39,7 @@ export default {
       '@nuxtjs/vuetify',
       {
         // treeShake: true,
-        // customVariables: ['~/assets/variables.scss'],
+        customVariables: ['~/assets/variables.scss'],
         defaultAssets: false,
         theme: {
           dark: false,

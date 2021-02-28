@@ -37,10 +37,3 @@ export default Vue.extend({
   }),
 })
 </script>
-<style lang="scss">
-.v-tabs:not(.v-tabs--vertical):not(.v-tabs--right)
-  > .v-slide-group--is-overflowing.v-tabs-bar--is-mobile:not(.v-slide-group--has-affixes)
-  .v-slide-group__prev {
-  display: none;
-}
-</style>
