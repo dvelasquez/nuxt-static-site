@@ -73,5 +73,11 @@ export default Vue.extend({
       mdiTune,
     },
   }),
+  mounted() {
+    import(
+      // @ts-ignore
+      /* webpackIgnore: true */ 'https://www.googletagmanager.com/gtag/js?id=G-WYW56VRCNE'
+    )
+  },
 })
 </script>
