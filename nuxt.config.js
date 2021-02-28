@@ -38,8 +38,8 @@ export default {
     [
       '@nuxtjs/vuetify',
       {
-        // treeShake: true,
-        // customVariables: ['~/assets/variables.scss'],
+        treeShake: true,
+        customVariables: ['~/assets/variables.scss'],
         defaultAssets: false,
         theme: {
           dark: false,
@@ -95,7 +95,7 @@ export default {
       'node_modules/vuetify/src/**/*.ts',
       'node_modules/vuetify/src/**/*.js',
     ],
-    styleExtensions: ['.css', '.scss'],
+    styleExtensions: ['.css', '.scss', '.sass'],
     safelist: {
       standard: ['body', 'html', 'nuxt-progress'],
       deep: [
@@ -112,14 +112,22 @@ export default {
     analyze: process.env.BUILD_ANALYZE || false,
     parallel: false,
     extractCSS: true,
-    optimizations: {
+    optimization: {
       splitChunks: {
-        minSize: 0,
-        maxSize: 51200,
-        enforceSizeThreshold: 51200,
-        layouts: true,
-        pages: true,
-        commons: true,
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue|scss|sass)$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    },
+    optimizeCSS: {
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['advanced'],
       },
     },
   },

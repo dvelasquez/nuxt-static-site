@@ -54,7 +54,7 @@ export default Vue.extend({
   },
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .place-card {
   max-height: 348px;
   height: 348px;
