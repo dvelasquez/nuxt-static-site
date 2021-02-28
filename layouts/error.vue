@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 v-if="error.statusCode === 404">
+    <h1 v-if="error.statusCode === 404" class="error-header">
       {{ pageNotFound }}
     </h1>
     <h1 v-else>
@@ -41,8 +41,8 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-h1 {
+<style>
+.error-header {
   font-size: 20px;
 }
 </style>
