@@ -38,7 +38,7 @@ export default {
     [
       '@nuxtjs/vuetify',
       {
-        // treeShake: true,
+        treeShake: true,
         customVariables: ['~/assets/variables.scss'],
         defaultAssets: false,
         theme: {
@@ -92,7 +92,7 @@ export default {
       'layouts/**/*.vue',
       'pages/**/*.vue',
       'plugins/**/*.js',
-      'node_modules/vuetify/src/**/*.ts',
+      // 'node_modules/vuetify/src/**/*.ts',
       'node_modules/vuetify/src/**/*.js',
     ],
     styleExtensions: ['.css', '.scss'],
@@ -121,6 +121,14 @@ export default {
         pages: true,
         commons: true,
       },
+    },
+    optimizeCSS: {
+      cssProcessor: require('cssnano'),
+    },
+    extend(config, ctx) {
+      if (ctx && ctx.isClient) {
+        config.optimization.splitChunks.maxSize = 51200
+      }
     },
   },
 
