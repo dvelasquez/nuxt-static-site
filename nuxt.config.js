@@ -127,7 +127,7 @@ export default {
     optimizeCSS: {
       cssProcessor: require('cssnano'),
       cssProcessorPluginOptions: {
-        preset: ['default', { discardComments: { removeAll: true } }],
+        preset: ['advanced'],
       },
     },
   },
