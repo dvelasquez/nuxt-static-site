@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate --modern",
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate --modern",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style",
@@ -27,11 +27,10 @@
   "dependencies": {
     "@mdi/js": "^5.9.55",
     "@nuxt/content": "^1.13.1",
-    "@nuxt/typescript-runtime": "^2.0.2",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.9.0",
-    "nuxt": "^2.14.6",
+    "nuxt": "^2.15.2",
     "perfume.js": "^5.3.0"
   },
   "devDependencies": {
@@ -73,6 +72,6 @@
     "vue-jest": "^3.0.4"
   },
   "resolutions": {
-    "@nuxt/vuetify/vuetify": "latest"
+    "@nuxt/vuetify/vuetify": "2.4.5"
   }
 }
