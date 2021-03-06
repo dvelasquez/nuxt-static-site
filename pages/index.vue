@@ -2,18 +2,18 @@
   <div>
     <header-tabs></header-tabs>
     <map-container :api-key="$data.apiKey"></map-container>
-    <!--    <div-->
-    <!--      v-for="(place, index) in $data.places"-->
-    <!--      :key="place.slug"-->
-    <!--      class="places__item"-->
-    <!--    >-->
-    <!--      <place-list-card-->
-    <!--        :place="place"-->
-    <!--        :loading="index < 2 ? 'eager' : 'lazy'"-->
-    <!--        :responsive-image-content="images[place.slug]"-->
-    <!--      />-->
-    <!--      <br />-->
-    <!--    </div>-->
+    <div
+      v-for="(place, index) in $data.places"
+      :key="place.slug"
+      class="places__item"
+    >
+      <place-list-card
+        :place="place"
+        :loading="index < 2 ? 'eager' : 'lazy'"
+        :responsive-image-content="images[place.slug]"
+      />
+      <br />
+    </div>
   </div>
 </template>
 
