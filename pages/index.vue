@@ -1,8 +1,10 @@
 <template>
   <div>
     <header-tabs></header-tabs>
+    <map-container :api-key="$data.apiKey"></map-container>
     <div
-      v-for="(place, index) in places"
+      v-for="(place, index) in $data.places"
+      v-if="false"
       :key="place.slug"
       class="places__item"
     >
@@ -24,6 +26,10 @@ import {
   ResponsiveImageContent,
 } from '~/helpers/image-utils'
 import { Place } from '~/content/places'
+import {
+  getGoogleMapPreloadLink,
+  GOOGLE_MAP_API_KEY,
+} from '~/helpers/gmap-utils'
 
 export default Vue.extend({
   async asyncData({ $content }) {
@@ -35,25 +41,22 @@ export default Vue.extend({
     return {
       places,
       images,
+      apiKey: GOOGLE_MAP_API_KEY,
     }
   },
   head() {
     let preloadFirstTwoImages: any[] = []
-    // @ts-ignore
-    if (this.places.length > 0) {
-      // @ts-ignore
-      this.places.forEach((place, index) => {
+    if (this.$data.places.length > 0) {
+      this.$data.places.forEach((place: Place, index: number) => {
         if (index < 2) {
-          // @ts-ignore
-          const placeImages = this.images[place.slug]
+          const placeImages = this.$data.images[place.slug]
           preloadFirstTwoImages = getPreloadLinks(placeImages)
         }
       })
     }
     return {
-      // @ts-ignore
-      title: this.places.length + ' lugares donde quitar el hambre',
-      link: preloadFirstTwoImages,
+      title: `${this.$data.places.length} lugares donde quitar el hambre`,
+      link: [...preloadFirstTwoImages, getGoogleMapPreloadLink()],
     }
   },
 })

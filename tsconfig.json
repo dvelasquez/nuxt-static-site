@@ -28,7 +28,8 @@
       "@nuxt/types",
       "@nuxt/content",
       "@nuxt/vue-app",
-      "@nuxtjs/vuetify"
+      "@nuxtjs/vuetify",
+      "googlemaps"
     ]
   },
   "exclude": [
