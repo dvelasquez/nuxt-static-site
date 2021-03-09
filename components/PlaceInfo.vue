@@ -83,6 +83,7 @@ import {
 } from '@mdi/js'
 import { Place } from '~/content/places'
 import { ResponsiveImageContent } from '~/helpers/image-utils'
+import { getStaticMapImage } from '~/helpers/gmap-static-utils'
 export default Vue.extend({
   props: {
     place: {
@@ -102,14 +103,20 @@ export default Vue.extend({
     mdiWhatsapp,
   }),
   computed: {
-    computedLocationMap() {
-      const mapLink =
-        'https://maps.googleapis.com/maps/api/staticmap?markers=color:green%7Clabel:'
-      const zoom = 15
-      const coordinates = `${this.place.location.coordinates.latitude}, ${this.place.location.coordinates.longitude}`
-      const size = '165x138'
-      const key = 'AIzaSyCmYLD0dkgSUN4aWETYjQ-g1DNL5B4IBsE'
-      return `${mapLink}Ubicacion%7C${coordinates}&zoom=${zoom}&size=${size}&key=${key}`
+    computedLocationMap(): string {
+      const staticMapLink = getStaticMapImage({
+        markers: [
+          {
+            location: this.place.location.coordinates,
+            label: this.place.name.substring(0, 1).toUpperCase(),
+          },
+        ],
+        zoom: 15,
+        size: '165x138',
+        key: 'AIzaSyCmYLD0dkgSUN4aWETYjQ-g1DNL5B4IBsE',
+        format: 'png32',
+      })
+      return staticMapLink.scale2x
     },
   },
 })
