@@ -75,15 +75,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import {
-  mdiInstagram,
   mdiFacebook,
+  mdiInstagram,
   mdiStar,
   mdiStarOutline,
   mdiWhatsapp,
 } from '@mdi/js'
 import { Place } from '~/content/places'
 import { ResponsiveImageContent } from '~/helpers/image-utils'
-import { getStaticMapImage } from '~/helpers/gmap-static-utils'
+import { getStaticMapImage, MapFormat } from '~/helpers/gmap-static-utils'
+
 export default Vue.extend({
   props: {
     place: {
@@ -114,7 +115,7 @@ export default Vue.extend({
         zoom: 15,
         size: '165x138',
         key: 'AIzaSyCmYLD0dkgSUN4aWETYjQ-g1DNL5B4IBsE',
-        format: 'png32',
+        format: MapFormat.PNG,
       })
       return staticMapLink.scale2x
     },

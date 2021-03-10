@@ -12,30 +12,52 @@ export interface GoogleMapsSizeOptions {
   height: number
   width: number
 }
+export enum MarkerColors {
+  BLACK = 'black',
+  BROWN = 'brown',
+  GREEN = 'green',
+  PURPLE = 'purple',
+  YELLOW = 'yellow',
+  BLUE = 'blue',
+  GRAY = 'gray',
+  ORANGE = 'orange',
+  RED = 'red',
+  WHITE = 'white',
+}
+export enum MarkerSizes {
+  TINY = 'tiny',
+  MID = 'mid',
+  SMALL = 'small',
+}
 export interface GoogleMapsStaticMarkerOptions {
-  color?:
-    | 'black'
-    | 'brown'
-    | 'green'
-    | 'purple'
-    | 'yellow'
-    | 'blue'
-    | 'gray'
-    | 'orange'
-    | 'red'
-    | 'white'
-    | string
+  color?: MarkerColors | string
   label?: string
   location: string | LocationCoordinates
-  size?: 'tiny' | 'mid' | 'small'
+  size?: MarkerSizes
+}
+
+export enum MapType {
+  ROADMAP = 'roadmap',
+  SATELLITE = 'satellite',
+  HYBRID = 'hybrid',
+  TERRAIN = 'terrain',
+}
+
+export enum MapFormat {
+  PNG8 = 'png8',
+  PNG = 'png',
+  PNG32 = 'png32',
+  GIF = 'gif',
+  JPG = 'jpg',
+  JPG_BASELINE = 'jpg-baseline',
 }
 // https://developers.google.com/maps/documentation/maps-static/start#URL_Parameters
 export interface GoogleMapsStaticOptions {
   center?: string | LocationCoordinates
   zoom: number
   size: string | GoogleMapsSizeOptions
-  maptype?: 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
-  format?: 'png8' | 'png' | 'png32' | 'gif' | 'jpg' | 'jpg-baseline'
+  maptype?: MapType
+  format?: MapFormat
   language?: string
   region?: string
   key: string
