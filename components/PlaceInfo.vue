@@ -84,6 +84,7 @@ import {
 import { Place } from '~/content/places'
 import { ResponsiveImageContent } from '~/helpers/image-utils'
 import { getStaticMapImage, MapFormat } from '~/helpers/gmap-static-utils'
+import { GOOGLE_MAP_API_KEY } from '~/helpers/gmap-utils'
 
 export default Vue.extend({
   props: {
@@ -114,7 +115,7 @@ export default Vue.extend({
         ],
         zoom: 15,
         size: '165x138',
-        key: 'AIzaSyCmYLD0dkgSUN4aWETYjQ-g1DNL5B4IBsE',
+        key: GOOGLE_MAP_API_KEY,
         format: MapFormat.PNG,
       })
       return staticMapLink.scale2x
