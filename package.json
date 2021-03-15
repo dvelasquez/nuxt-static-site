@@ -47,7 +47,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.5.0",
-    "css-byebye": "^2.0.2",
+    "css-byebye": "^3.0.0",
     "cssnano-preset-advanced": "^4.0.7",
     "cypress": "^6.6.0",
     "eslint": "^7.21.0",
