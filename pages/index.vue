@@ -1,18 +1,24 @@
 <template>
   <div>
     <header-tabs></header-tabs>
-    <map-container v-if="mapEnabled" :api-key="$data.apiKey"></map-container>
-    <div
-      v-for="(place, index) in $data.places"
-      :key="place.slug"
-      class="places__item"
-    >
-      <place-list-card
-        :place="place"
-        :loading="index < 2 ? 'eager' : 'lazy'"
-        :responsive-image-content="images[place.slug]"
-      />
-      <br />
+    <lazy-map-container
+      v-if="mapEnabled"
+      :places="$data.places"
+      :api-key="$data.apiKey"
+    ></lazy-map-container>
+    <div v-if="!mapEnabled">
+      <div
+        v-for="(place, index) in $data.places"
+        :key="place.slug"
+        class="places__item"
+      >
+        <place-list-card
+          :place="place"
+          :loading="index < 2 ? 'eager' : 'lazy'"
+          :responsive-image-content="images[place.slug]"
+        />
+        <br />
+      </div>
     </div>
   </div>
 </template>

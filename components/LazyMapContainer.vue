@@ -7,10 +7,13 @@
 /* eslint-disable no-undef */
 import Vue from 'vue'
 import { Loader } from '@googlemaps/js-api-loader'
+import { Place } from '~/content/places'
+
 export default Vue.extend({
   props: {
     mapConfig: Object,
     apiKey: String,
+    places: Array as () => Place[],
   },
   data() {
     return {
