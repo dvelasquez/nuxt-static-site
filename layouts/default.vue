@@ -25,8 +25,10 @@
       <v-btn icon aria-label="menu" color="primary">
         <v-icon>{{ icons.mdiTune }}</v-icon>
       </v-btn>
-      <v-btn icon aria-label="menu" color="primary">
-        <v-icon>{{ icons.mdiMapMarker }}</v-icon>
+      <v-btn icon aria-label="menu" color="primary" @click.stop="toggleMap">
+        <v-icon>{{
+          mapEnabled ? icons.mdiMapMarker : icons.mdiMapMarkerOff
+        }}</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -44,9 +46,11 @@ import {
   mdiApplication,
   mdiApps,
   mdiMapMarker,
+  mdiMapMarkerOff,
   mdiTune,
 } from '@mdi/js'
 import Vue from 'vue'
+import { mapMutations } from 'vuex'
 
 export default Vue.extend({
   data: () => ({
@@ -70,9 +74,20 @@ export default Vue.extend({
       mdiApplication,
       mdiApps,
       mdiMapMarker,
+      mdiMapMarkerOff,
       mdiTune,
     },
   }),
+  computed: {
+    mapEnabled() {
+      return this.$store.state.mapEnabled
+    },
+  },
+  methods: {
+    ...mapMutations({
+      toggleMap: 'toggleMap',
+    }),
+  },
   mounted() {
     import(
       // @ts-ignore
