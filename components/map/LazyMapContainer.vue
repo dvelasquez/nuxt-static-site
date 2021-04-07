@@ -18,9 +18,9 @@ export default Vue.extend({
   data() {
     return {
       map: null as google.maps.Map | null,
+      google: null,
     }
   },
-
   async mounted() {
     const loader = new Loader({
       apiKey: this.apiKey,

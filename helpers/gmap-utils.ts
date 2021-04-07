@@ -9,6 +9,11 @@ const getGoogleMapPreloadLink = () => ({
   rel: 'preload',
   as: 'script',
 })
+const getGoogleMapPrefetchLink = () => ({
+  href: GOOGLE_MAP_PRELOAD_URL,
+  rel: 'prefetch',
+  as: 'script',
+})
 
 const getGoogleMapScript = () => ({
   src: GOOGLE_MAP_URL,
@@ -20,5 +25,6 @@ export {
   GOOGLE_MAP_API_KEY,
   GOOGLE_MAP_URL,
   getGoogleMapPreloadLink,
+  getGoogleMapPrefetchLink,
   getGoogleMapScript,
 }

@@ -32,7 +32,7 @@ import {
 } from '~/helpers/image-utils'
 import { Place } from '~/content/places'
 import {
-  getGoogleMapPreloadLink,
+  getGoogleMapPrefetchLink,
   GOOGLE_MAP_API_KEY,
 } from '~/helpers/gmap-utils'
 
@@ -61,7 +61,7 @@ export default Vue.extend({
     }
     return {
       title: `${this.$data.places.length} lugares donde quitar el hambre`,
-      link: [...preloadFirstTwoImages, getGoogleMapPreloadLink()],
+      link: [...preloadFirstTwoImages, getGoogleMapPrefetchLink()],
     }
   },
   computed: {
