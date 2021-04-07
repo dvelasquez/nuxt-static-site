@@ -1,7 +1,7 @@
 <template>
   <div>
     <header-tabs></header-tabs>
-    <map-container :api-key="$data.apiKey"></map-container>
+    <map-container v-if="mapEnabled" :api-key="$data.apiKey"></map-container>
     <div
       v-for="(place, index) in $data.places"
       :key="place.slug"
@@ -57,6 +57,11 @@ export default Vue.extend({
       title: `${this.$data.places.length} lugares donde quitar el hambre`,
       link: [...preloadFirstTwoImages, getGoogleMapPreloadLink()],
     }
+  },
+  computed: {
+    mapEnabled() {
+      return this.$store.state.mapEnabled
+    },
   },
 })
 </script>
