@@ -5,7 +5,6 @@ on:
     branches:
       - main
 jobs:
-
   install_dependencies:
     runs-on: ubuntu-latest
 
@@ -44,66 +43,6 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         if: steps.node_modules-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
-
-  analyse_locally:
-    runs-on: ubuntu-latest
-    needs: install_dependencies
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.5
-        id: node_modules-cache-analysis
-        with:
-          path: |
-            **/node_modules
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-node_modules-analysis-v4-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-analysis-v4-
-            ${{ runner.os }}-node_modules-v4-
-
-      - name: Install dependencies 👨🏻‍💻
-        if: steps.node_modules-cache-analysis.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
-
-      - name: Build Application for Analysis 🛠
-        run: yarn generate
-
-      - name: Audit URLs using Lighthouse
-        id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@7.0.0
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_TOKEN }}
-          GITHUB_PR_NUMBER: ${{github.event.number}}
-        with:
-          configPath: './lighthouserc.pr.js'
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true
-
-      - name: Format lighthouse score
-        id: format_lighthouse_score
-        uses: actions/github-script@v3
-        if: always()
-        with:
-          script: |
-            const results = ${{ steps.lighthouse_audit.outputs.manifest }}
-            const links = ${{ steps.lighthouse_audit.outputs.links }}
-            const assertionResults = ${{ steps.lighthouse_audit.outputs.assertionResults }}
-            const fls = require(`${process.env.GITHUB_WORKSPACE}/.github/workflows/scripts/format-lighthouse-score.js`)
-            const comment = fls({ results, links, assertionResults })
-            core.setOutput("comment", comment);
-
-      - name: Add comment to PR
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: always()
-        with:
-          number: ${{ github.event.issue.number }}
-          header: lighthouse-local
-          message: |
-            ${{ steps.format_lighthouse_score.outputs.comment }}
 
   deploy_pr_s3:
     runs-on: ubuntu-latest

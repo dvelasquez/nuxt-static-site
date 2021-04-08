@@ -1329,10 +1329,10 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
-"@googlemaps/js-api-loader@^1.11.2":
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.2.tgz#d946bc1a858bfa04bbe15e42f89cb113a838e1b0"
-  integrity sha512-PgB3VQSPH9338PW2OXtJHdCAy9GdsI4Wskv0yAfVs7u8nFOrmt98A2Y/FodyRTno6DOqtS9q8jjK9PJ0/h2a4w==
+"@googlemaps/js-api-loader@^1.11.3":
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.3.tgz#de2db86c5c64ed62f2f16dc59eb59821257dc583"
+  integrity sha512-MUX04/b5dBIqi2jl2/89FS48gWPm5cgUwO4dDffIoylKv/e7HP9gJvpKqk1/JMIYPX2y/qO2TqFteRAWmNU1BA==
   dependencies:
     fast-deep-equal "^3.1.3"
 
