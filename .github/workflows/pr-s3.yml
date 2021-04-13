@@ -5,6 +5,13 @@ on:
     branches:
       - main
 jobs:
+  test_pr_name:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Echo PR title 🛠
+        run: echo ${{github.context.payload.pull_request.title}}
+
   install_dependencies:
     runs-on: ubuntu-latest
 
@@ -86,7 +93,6 @@ jobs:
         uses: actions/github-script@v3
         if: always()
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             const links = ${{ steps.lighthouse_audit.outputs.links }}
@@ -108,7 +114,7 @@ jobs:
   deploy_pr_s3:
     runs-on: ubuntu-latest
     needs: install_dependencies
-    if: ${{startsWith(github.context.payload.pull_request.title, 'chore(deps-dev)')}}
+    if: startsWith(github.context.payload.pull_request.title, 'fix(deps)')
 
     steps:
       - uses: actions/checkout@v2
