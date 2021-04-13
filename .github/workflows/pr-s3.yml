@@ -108,6 +108,7 @@ jobs:
   deploy_pr_s3:
     runs-on: ubuntu-latest
     needs: install_dependencies
+    if: ${{startsWith(github.context.payload.pull_request.title, 'chore(deps-dev)')}}
 
     steps:
       - uses: actions/checkout@v2
