@@ -5,6 +5,7 @@ on:
     branches:
       - main
 jobs:
+
   install_dependencies:
     runs-on: ubuntu-latest
 
@@ -21,7 +22,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache yarn cache 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -30,7 +31,7 @@ jobs:
             ${{ runner.os }}-yarn-v4-
 
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         id: node_modules-cache
         with:
           path: |
@@ -51,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         id: node_modules-cache-analysis
         with:
           path: |
@@ -86,7 +87,6 @@ jobs:
         uses: actions/github-script@v3
         if: always()
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const results = ${{ steps.lighthouse_audit.outputs.manifest }}
             const links = ${{ steps.lighthouse_audit.outputs.links }}
@@ -108,12 +108,12 @@ jobs:
   deploy_pr_s3:
     runs-on: ubuntu-latest
     needs: install_dependencies
-    if: ${{startsWith(github.context.payload.pull_request.title, 'chore(deps-dev)')}}
+    if: startsWith(github.event.pull_request.title, 'fix(deps)')
 
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         id: node_modules-cache-s3
         with:
           path: |
@@ -159,7 +159,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         id: node_modules-cache
         with:
           path: |
