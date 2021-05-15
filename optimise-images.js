@@ -54,58 +54,59 @@ const transformAvif = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) =>
 const transformJpg = ({ fileBuffer, fileOutputPath, sizeOptions, quality }) =>
   sharp(fileBuffer).resize(sizeOptions).jpeg(quality).toFile(fileOutputPath)
 
-const mapResize = ({ type, content, fileName, fileBuffer, quality }) => ([
-  key,
-  sizeOptions,
-]) => ({
-  fileBuffer,
-  fileOutputPath: path.join(
-    content,
-    fileName.replace('.jpg', `_${key}.${type}`)
-  ),
-  sizeOptions,
-  quality,
-})
+const mapResize =
+  ({ type, content, fileName, fileBuffer, quality }) =>
+  ([key, sizeOptions]) => ({
+    fileBuffer,
+    fileOutputPath: path.join(
+      content,
+      fileName.replace('.jpg', `_${key}.${type}`)
+    ),
+    sizeOptions,
+    quality,
+  })
 
-const process = ({
-  type,
-  contentFull,
-  qualityOption,
-  contentThumbnails,
-  transform,
-  originalResize,
-  thumbResize,
-}) => ({ fileBuffer, file }) => {
-  try {
-    const quality = {
-      quality: qualityOption,
+const process =
+  ({
+    type,
+    contentFull,
+    qualityOption,
+    contentThumbnails,
+    transform,
+    originalResize,
+    thumbResize,
+  }) =>
+  ({ fileBuffer, file }) => {
+    try {
+      const quality = {
+        quality: qualityOption,
+      }
+
+      const originalMap = Object.entries(originalResize).map(
+        mapResize({
+          type,
+          content: contentFull,
+          fileName: file,
+          fileBuffer,
+          quality,
+        })
+      )
+
+      const thumbMap = Object.entries(thumbResize).map(
+        mapResize({
+          type,
+          content: contentThumbnails,
+          fileName: file,
+          fileBuffer,
+          quality,
+        })
+      )
+
+      return Promise.all(originalMap.concat(thumbMap).map(transform))
+    } catch (error) {
+      console.error(error)
     }
-
-    const originalMap = Object.entries(originalResize).map(
-      mapResize({
-        type,
-        content: contentFull,
-        fileName: file,
-        fileBuffer,
-        quality,
-      })
-    )
-
-    const thumbMap = Object.entries(thumbResize).map(
-      mapResize({
-        type,
-        content: contentThumbnails,
-        fileName: file,
-        fileBuffer,
-        quality,
-      })
-    )
-
-    return Promise.all(originalMap.concat(thumbMap).map(transform))
-  } catch (error) {
-    console.error(error)
   }
-}
 const processWebp = process({
   type: 'webp',
   contentFull: IMAGE_CONTENT_WEBP_FULL,
