@@ -52,7 +52,7 @@
     "css-byebye": "^3.0.0",
     "cssnano-preset-advanced": "^4.0.8",
     "cypress": "^7.6.0",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-nuxt": "^2.0.0",
