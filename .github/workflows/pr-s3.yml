@@ -21,7 +21,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache yarn cache 📦
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-yarn-v4-
 
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         id: node_modules-cache
         with:
           path: |
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         id: node_modules-cache-s3
         with:
           path: |
@@ -98,7 +98,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules 📦
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         id: node_modules-cache
         with:
           path: |
